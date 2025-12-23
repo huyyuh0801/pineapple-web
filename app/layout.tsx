@@ -2,8 +2,8 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 
 export const metadata = {
-  title: "Pineapple Farm",
-  description: "Dứa tươi ngon mỗi ngày – đặt hàng nhanh qua Zalo/điện thoại.",
+  title: "VietPineapple",
+  description: "Dứa tươi ngon mỗi ngày – đặt hàng nhanh, nhận đúng hẹn.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

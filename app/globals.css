@@ -16,6 +16,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden; /* tránh scroll ngang khi có phần tràn full */
+
+  /* ✅ đọc dễ trên mobile/tablet */
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 *,
@@ -42,9 +46,8 @@ a {
   }
 }
 
+/* tốc độ bạn đang thích (nhanh) */
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-move 2s linear infinite;
 }
-
-

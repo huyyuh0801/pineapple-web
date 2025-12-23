@@ -3,11 +3,7 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
-const IMAGES = [
-  "/images/banner1.jpg",
-  "/images/banner2.jpg",
-  "/images/banner3.jpg",
-]
+const IMAGES = ["/images/banner1.jpg", "/images/banner2.jpg", "/images/banner3.jpg"]
 
 export default function HeroSlider() {
   const [index, setIndex] = useState(0)
@@ -42,7 +38,10 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative h-[620px] w-full overflow-hidden md:h-[600px]"
+      className="
+        relative w-full overflow-hidden
+        h-[320px] sm:h-[420px] md:h-[520px] lg:h-[600px]
+      "
       onMouseEnter={() => (isHoveredRef.current = true)}
       onMouseLeave={() => (isHoveredRef.current = false)}
     >
@@ -62,15 +61,17 @@ export default function HeroSlider() {
         alt="Banner"
         fill
         priority
-        className={`object-contain transition-opacity duration-500 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
+        className={`object-contain transition-opacity duration-500 ${fade ? "opacity-100" : "opacity-0"}`}
       />
 
       {/* LEFT ARROW */}
       <button
         onClick={prev}
-        className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-4 shadow-lg backdrop-blur hover:bg-white transition"
+        className="
+          absolute left-3 sm:left-6 top-1/2 -translate-y-1/2
+          rounded-full bg-white/80 p-3 sm:p-4
+          shadow-lg backdrop-blur hover:bg-white transition
+        "
         aria-label="Previous"
       >
         <ArrowLeft />
@@ -79,14 +80,18 @@ export default function HeroSlider() {
       {/* RIGHT ARROW */}
       <button
         onClick={next}
-        className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-4 shadow-lg backdrop-blur hover:bg-white transition"
+        className="
+          absolute right-3 sm:right-6 top-1/2 -translate-y-1/2
+          rounded-full bg-white/80 p-3 sm:p-4
+          shadow-lg backdrop-blur hover:bg-white transition
+        "
         aria-label="Next"
       >
         <ArrowRight />
       </button>
 
       {/* DOTS */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
         {IMAGES.map((_, i) => (
           <button
             key={i}
@@ -102,7 +107,7 @@ export default function HeroSlider() {
   )
 }
 
-/* ===== ICONS (đẹp, nhẹ, không cần thư viện) ===== */
+/* ===== ICONS ===== */
 function ArrowLeft() {
   return (
     <svg
