@@ -1,0 +1,226 @@
+import Image from "next/image"
+import Link from "next/link"
+import { products } from "@/data/pineapples"
+import HeroSlider from "@/components/HeroSlider"
+
+const PHONE = "+849xxxxxxxx" // đổi
+const ZALO_LINK = "https://zalo.me/" // đổi
+
+function Container({ children }: { children: React.ReactNode }) {
+  return <div className="mx-auto w-full max-w-6xl px-6">{children}</div>
+}
+
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="rounded-3xl border bg-white p-8 shadow-sm">{children}</div>
+}
+
+function SectionTitle({
+  title,
+  subtitle,
+  moreHref,
+  moreText = "Xem thêm →",
+}: {
+  title: string
+  subtitle?: string
+  moreHref: string
+  moreText?: string
+}) {
+  return (
+    <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <h2 className="text-4xl font-extrabold">{title}</h2>
+        {subtitle ? <p className="mt-3 text-lg text-neutral-600">{subtitle}</p> : null}
+      </div>
+      <Link
+        href={moreHref}
+        className="w-fit rounded-2xl border px-5 py-3 text-lg font-bold hover:bg-neutral-50"
+      >
+        {moreText}
+      </Link>
+    </div>
+  )
+}
+
+export default function Home() {
+  const featured = products.slice(0, 3)
+
+  return (
+    <main className="bg-white text-neutral-900">
+      {/* ===== HERO ===== */}
+      <section className="bg-gradient-to-b from-emerald-50 via-lime-50 to-white">
+        <Container>
+          <div className="py-14 md:py-16">
+            {/* H1 full-width để không bị cắt gradient */}
+            <div className="relative -mx-6 px-6">
+              <h1
+                className="
+                  text-5xl md:text-7xl
+                  font-extrabold tracking-tight
+                  leading-[1.12] md:leading-[1.1]
+                  pb-2
+                  bg-gradient-to-r
+                  from-yellow-300 via-yellow-400 to-emerald-600
+                  bg-clip-text text-transparent
+                  animate-gradient
+                  drop-shadow-sm
+                "
+              >
+                Dứa tươi ngon mỗi ngày 🍍
+              </h1>
+            </div>
+
+            {/* ===== HERO SLIDER ===== */}
+            <div className="relative mt-24 -mx-6">
+              <HeroSlider />
+            </div>
+
+            <p className="mt-10 max-w-3xl text-xl leading-relaxed text-neutral-700">
+              Xem nhanh sản phẩm, giá tham khảo và cách đặt hàng.
+              Đặt đơn đơn giản, nhận hàng đúng hẹn.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="/products"
+                className="rounded-2xl bg-emerald-600 px-8 py-4 text-xl font-extrabold text-white hover:bg-emerald-700"
+              >
+                Xem sản phẩm
+              </Link>
+              <Link
+                href="/contact"
+                className="rounded-2xl border px-8 py-4 text-xl font-bold hover:bg-white/70"
+              >
+                Liên hệ
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== USP ===== */}
+      <section className="bg-white py-16">
+        <Container>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="rounded-3xl bg-emerald-50 p-10">
+              <div className="text-2xl font-extrabold">🍍 Chọn trái kỹ</div>
+              <p className="mt-5 text-xl leading-relaxed text-neutral-700">
+                Ưu tiên độ chín phù hợp, ít xơ, vị ngọt tự nhiên.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-lime-50 p-10">
+              <div className="text-2xl font-extrabold">🌱 Nguồn gốc rõ</div>
+              <p className="mt-5 text-xl leading-relaxed text-neutral-700">
+                Có thể cung cấp thông tin vùng trồng và đợt thu hoạch.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-yellow-50 p-10">
+              <div className="text-2xl font-extrabold">🚚 Giao nhanh</div>
+              <p className="mt-5 text-xl leading-relaxed text-neutral-700">
+                Nhận đơn nhanh qua Zalo/điện thoại, giao đúng hẹn.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== PRODUCTS ===== */}
+      <section className="bg-gradient-to-b from-white to-neutral-50 py-20">
+        <Container>
+          <SectionTitle
+            title="Sản phẩm nổi bật"
+            subtitle="Một vài loại đang bán. Xem đầy đủ danh mục ở trang Sản phẩm."
+            moreHref="/products"
+          />
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/products/${p.slug}`}
+                className="group rounded-3xl border bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-xl"
+              >
+                <h3 className="text-2xl font-extrabold">{p.name}</h3>
+                <p className="mt-4 text-lg text-neutral-600">{p.short}</p>
+
+                <div className="mt-6 flex items-center justify-between">
+                  <span className="rounded-full bg-emerald-100 px-4 py-2 text-base font-extrabold text-emerald-700">
+                    {p.price}
+                  </span>
+                  <span className="text-lg font-bold text-emerald-700 group-hover:underline">
+                    Xem chi tiết →
+                  </span>
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-700"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== ABOUT ===== */}
+      <section className="bg-white py-20">
+        <Container>
+          <SectionTitle
+            title="Giới thiệu"
+            subtitle="Tầm nhìn và giá trị chúng tôi mang đến cho khách hàng."
+            moreHref="/about"
+            moreText="Xem chi tiết →"
+          />
+
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            <Card>
+              <div className="text-2xl font-extrabold">Tầm nhìn</div>
+              <p className="mt-4 text-lg leading-relaxed text-neutral-700">
+                Trở thành lựa chọn đáng tin cậy khi bạn cần dứa tươi ngon mỗi ngày —
+                đặt nhanh, nhận đúng hẹn, chất lượng ổn định theo từng đợt hàng.
+              </p>
+              <ul className="mt-5 list-disc space-y-2 pl-6 text-lg text-neutral-700">
+                <li>Ưu tiên trải nghiệm mua hàng đơn giản, minh bạch.</li>
+                <li>Giữ chất lượng đồng đều, chọn trái kỹ trước khi giao.</li>
+                <li>Xây dựng uy tín lâu dài bằng sự tử tế và nhất quán.</li>
+              </ul>
+            </Card>
+
+            <Card>
+              <div className="text-2xl font-extrabold">Giá trị dành cho khách hàng</div>
+              <p className="mt-4 text-lg leading-relaxed text-neutral-700">
+                Bạn nhận được dứa đúng nhu cầu: thơm – ngọt – ít xơ (tuỳ loại),
+                cùng tư vấn sử dụng và bảo quản để luôn ngon khi dùng.
+              </p>
+              <ul className="mt-5 list-disc space-y-2 pl-6 text-lg text-neutral-700">
+                <li><b>Dễ đặt:</b> nhắn loại + số kg + địa chỉ + giờ nhận.</li>
+                <li><b>Dễ dùng:</b> tư vấn độ chín theo mục đích.</li>
+                <li><b>An tâm:</b> đóng gói cẩn thận, hỗ trợ khi phát sinh.</li>
+              </ul>
+            </Card>
+          </div>
+        </Container>
+      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="bg-neutral-900 py-10 text-neutral-300">
+        <Container>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-base">
+            <div>© {new Date().getFullYear()} • Pineapple Farm</div>
+            <div className="flex flex-wrap gap-6">
+              <Link href="/">Trang chủ</Link>
+              <Link href="/products">Sản phẩm</Link>
+              <Link href="/about">Giới thiệu</Link>
+              <Link href="/contact">Liên hệ</Link>
+            </div>
+          </div>
+        </Container>
+      </footer>
+    </main>
+  )
+}
