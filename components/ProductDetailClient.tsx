@@ -1,11 +1,12 @@
 "use client"
 
 import Image from "next/image"
+import { useState } from "react"
 
 type Product = {
   slug: string
   name: string
-  price: string // ví dụ: "25.000đ/kg"
+  price: string
   origin?: string
   taste?: string
   desc?: string
@@ -14,8 +15,7 @@ type Product = {
 }
 
 function parsePriceVND(priceText: string) {
-  // Lấy số trong chuỗi "25.000đ/kg" -> 25000
-  const digits = priceText.replace(/[^\d]/g, "")
+  const digits = priceText?.replace(/[^\d]/g, "") || ""
   const n = Number(digits)
   return Number.isFinite(n) && n > 0 ? n : null
 }
@@ -36,7 +36,7 @@ export default function ProductDetailClient({
   }
 }) {
   const unit = parsePriceVND(product.price)
-  const [qty, setQty] = useState(1) // kg
+  const [qty, setQty] = useState(1)
 
   const total = unit ? unit * qty : null
 
@@ -49,44 +49,45 @@ export default function ProductDetailClient({
     : `${orderLinks.zalo}?text=${orderText}`
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      {/* LEFT: IMAGE */}
-      <div className="rounded-3xl border bg-white overflow-hidden">
-        <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-emerald-50 via-lime-50 to-yellow-50">
-          {product.image ? (
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
-          ) : (
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="text-sm font-semibold text-neutral-600">
-                (Chưa có ảnh) • Thêm image trong data để hiển thị
+    <div className="space-y-8">
+      {/* ===== TOP: 2 COLUMNS (giữ như cũ) ===== */}
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* LEFT: IMAGE */}
+        <div className="rounded-3xl border bg-white overflow-hidden">
+          <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-emerald-50 via-lime-50 to-yellow-50">
+            {product.image ? (
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="absolute inset-0 grid place-items-center">
+                <div className="text-sm font-semibold text-neutral-600">
+                  (Chưa có ảnh) • Thêm image trong data để hiển thị
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
 
-        <div className="p-6 md:p-8">
-          <div className="flex flex-wrap gap-2">
-            {product.tags?.map((t) => (
-              <span
-                key={t}
-                className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs md:text-sm font-semibold text-neutral-700"
-              >
-                {t}
-              </span>
-            ))}
+          <div className="p-6 md:p-8">
+            <div className="flex flex-wrap gap-2">
+              {product.tags?.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full bg-neutral-100 px-3 py-1.5 text-xs md:text-sm font-semibold text-neutral-700"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* RIGHT: INFO / BUY BOX */}
-      <div className="space-y-6">
+        {/* RIGHT: BUY BOX */}
         <div className="rounded-3xl border bg-white p-6 md:p-8">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
             {product.name}
@@ -108,7 +109,7 @@ export default function ProductDetailClient({
             )}
           </div>
 
-          {/* Quick meta */}
+          {/* Meta */}
           <div className="mt-6 grid gap-3 sm:grid-cols-2 text-base md:text-lg text-neutral-700">
             {product.origin ? (
               <div className="rounded-2xl bg-neutral-50 p-4">
@@ -125,7 +126,7 @@ export default function ProductDetailClient({
             ) : null}
           </div>
 
-          {/* Quantity */}
+          {/* Qty */}
           <div className="mt-7">
             <div className="text-sm font-semibold text-neutral-600">Số lượng (kg)</div>
 
@@ -191,20 +192,40 @@ export default function ProductDetailClient({
             “{product.name} + {qty}kg + địa chỉ + giờ nhận”.
           </p>
         </div>
+      </div>
 
-        {/* Description */}
-        <div className="rounded-3xl border bg-white p-6 md:p-8">
-          <div className="text-xl md:text-2xl font-extrabold">Mô tả sản phẩm</div>
-          <p className="mt-4 text-base md:text-lg leading-relaxed text-neutral-700">
-            {product.desc || "Đang cập nhật mô tả chi tiết cho sản phẩm này."}
-          </p>
+      {/* ===== BOTTOM: DESCRIPTION FULL WIDTH (trải ngang) ===== */}
+      <div className="rounded-3xl border bg-white p-6 md:p-8">
+        <div className="text-xl md:text-2xl font-extrabold">Mô tả sản phẩm</div>
+        <p className="mt-4 text-base md:text-lg leading-relaxed text-neutral-700">
+          {product.desc || "Đang cập nhật mô tả chi tiết cho sản phẩm này."}
+        </p>
 
-          <div className="mt-6 rounded-2xl bg-neutral-50 p-5">
-            <div className="text-sm font-semibold text-neutral-600">Mẹo sử dụng</div>
+        <div className="mt-6 grid gap-5 md:grid-cols-3">
+          <div className="rounded-2xl bg-neutral-50 p-5">
+            <div className="text-sm font-semibold text-neutral-600">Mẹo chọn dứa</div>
             <ul className="mt-2 list-disc pl-6 space-y-1 text-base md:text-lg text-neutral-700">
-              <li>Ăn tươi: chọn độ chín thơm vừa.</li>
-              <li>Ép: để mát 30 phút trước khi ép sẽ ngon hơn.</li>
-              <li>Bảo quản: bọc kín, để ngăn mát 1–2 ngày sau khi cắt.</li>
+              <li>Thơm mạnh, vỏ ngả vàng nhẹ.</li>
+              <li>Mắt đều, không dập/cấn.</li>
+              <li>Cầm chắc tay, không mềm nhũn.</li>
+            </ul>
+          </div>
+
+          <div className="rounded-2xl bg-neutral-50 p-5">
+            <div className="text-sm font-semibold text-neutral-600">Cách dùng</div>
+            <ul className="mt-2 list-disc pl-6 space-y-1 text-base md:text-lg text-neutral-700">
+              <li>Ăn tươi / ép / làm salad.</li>
+              <li>Để mát 30 phút trước khi ăn.</li>
+              <li>Hợp làm nước ép giải nhiệt.</li>
+            </ul>
+          </div>
+
+          <div className="rounded-2xl bg-neutral-50 p-5">
+            <div className="text-sm font-semibold text-neutral-600">Bảo quản</div>
+            <ul className="mt-2 list-disc pl-6 space-y-1 text-base md:text-lg text-neutral-700">
+              <li>Dứa nguyên trái: nơi thoáng mát 1–2 ngày.</li>
+              <li>Cắt sẵn: hộp kín, ngăn mát 1–2 ngày.</li>
+              <li>Tránh để gần đồ có mùi mạnh.</li>
             </ul>
           </div>
         </div>
@@ -212,5 +233,3 @@ export default function ProductDetailClient({
     </div>
   )
 }
-
-import { useState } from "react"
