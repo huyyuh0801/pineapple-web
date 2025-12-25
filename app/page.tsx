@@ -76,11 +76,7 @@ export default function Home() {
               <HeroSlider />
             </div>
 
-            <p className="mt-8 md:mt-10 max-w-3xl text-lg md:text-xl leading-relaxed text-neutral-700">
-              Xem nhanh sản phẩm, giá tham khảo và cách đặt hàng. Đặt đơn đơn giản, nhận hàng đúng hẹn.
-            </p>
-
-            <div className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4">
+            {/* <div className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4">
               <Link
                 href="/products"
                 className="rounded-2xl bg-emerald-600 px-6 py-3 md:px-8 md:py-4 text-lg md:text-xl font-extrabold text-white hover:bg-emerald-700 transition"
@@ -93,7 +89,7 @@ export default function Home() {
               >
                 Liên hệ
               </Link>
-            </div>
+            </div> */}
           </div>
         </Container>
       </section>
