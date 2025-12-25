@@ -98,34 +98,6 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ===== USP ===== */}
-      <section className="bg-white py-12 md:py-16">
-        <Container>
-          <div className="grid gap-5 md:gap-8 md:grid-cols-3">
-            <div className="rounded-3xl bg-emerald-50 p-7 md:p-10">
-              <div className="text-xl md:text-2xl font-extrabold">🍍 Chọn trái kỹ</div>
-              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
-                Ưu tiên độ chín phù hợp, ít xơ, vị ngọt tự nhiên.
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-lime-50 p-7 md:p-10">
-              <div className="text-xl md:text-2xl font-extrabold">🌱 Nguồn gốc rõ</div>
-              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
-                Có thể cung cấp thông tin vùng trồng và đợt thu hoạch.
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-yellow-50 p-7 md:p-10">
-              <div className="text-xl md:text-2xl font-extrabold">🚚 Giao nhanh</div>
-              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
-                Nhận đơn nhanh qua Zalo/điện thoại, giao đúng hẹn.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       {/* ===== PRODUCTS ===== */}
       <section className="bg-gradient-to-b from-white to-neutral-50 py-14 md:py-20">
         <Container>
@@ -171,7 +143,33 @@ export default function Home() {
           </div>
         </Container>
       </section>
+      {/* ===== USP ===== */}
+      <section className="bg-white py-12 md:py-16">
+        <Container>
+          <div className="grid gap-5 md:gap-8 md:grid-cols-3">
+            <div className="rounded-3xl bg-emerald-50 p-7 md:p-10">
+              <div className="text-xl md:text-2xl font-extrabold">🍍 Chọn trái kỹ</div>
+              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
+                Ưu tiên độ chín phù hợp, ít xơ, vị ngọt tự nhiên.
+              </p>
+            </div>
 
+            <div className="rounded-3xl bg-lime-50 p-7 md:p-10">
+              <div className="text-xl md:text-2xl font-extrabold">🌱 Nguồn gốc rõ</div>
+              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
+                Có thể cung cấp thông tin vùng trồng và đợt thu hoạch.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-yellow-50 p-7 md:p-10">
+              <div className="text-xl md:text-2xl font-extrabold">🚚 Giao nhanh</div>
+              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
+                Nhận đơn nhanh qua Zalo/điện thoại, giao đúng hẹn.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
       {/* ===== ABOUT ===== */}
       <section className="bg-white py-14 md:py-20">
         <Container>
