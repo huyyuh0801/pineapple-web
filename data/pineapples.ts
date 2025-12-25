@@ -7,6 +7,7 @@ export type Product = {
   taste: string
   desc: string
   tags: string[]
+  image: string
 }
 
 export const products: Product[] = [
@@ -14,11 +15,12 @@ export const products: Product[] = [
     slug: "dua-cau-duc",
     name: "Dứa Cầu Đúc",
     short: "Ngọt, thơm, ít xơ – ăn tươi/ép",
-    price: "18.000đ/kg",
-    origin: "Quảng Ninh",
-    taste: "Ngọt, thơm, ít xơ",
-    desc: "Ăn tươi hoặc ép nước rất hợp. Mắt nhỏ, ruột vàng, thơm dịu.",
-    tags: ["Ít xơ", "Ruột vàng", "Thơm"],
+    price: "22.000đ/kg",
+    origin: "Hậu Giang",
+    taste: "Ngọt thanh, thơm dịu",
+    desc: "Ăn tươi hoặc ép nước rất hợp. Mắt nhỏ, ruột vàng, ít xơ, vị ngọt tự nhiên.",
+    tags: ["Ít xơ", "Ruột vàng", "Ăn tươi"],
+    image: "/images/dua-cau-duc.jpg",
   },
   {
     slug: "dua-md2",
@@ -27,7 +29,8 @@ export const products: Product[] = [
     price: "25.000đ/kg",
     origin: "Tiền Giang",
     taste: "Ngọt đậm, thơm mạnh",
-    desc: "Trái to, ruột vàng, vị ngọt rõ. Hợp làm nước ép, phục vụ quán.",
+    desc: "Trái to, ruột vàng đậm, vị ngọt rõ. Rất phù hợp cho ép nước, quán cà phê.",
     tags: ["Trái to", "Ngọt đậm", "Nước ép"],
+    image: "/images/dua-md2.jpg",
   },
 ]
