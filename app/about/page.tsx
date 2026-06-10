@@ -215,7 +215,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-                Sẵn sàng đặt dứa chưa? 🍍
+                Quý khách đã sẵn sàng lựa chọn sản phẩm hay cần được tư vấn?
               </h2>
             </div>
 
@@ -228,9 +228,9 @@ export default function AboutPage() {
               </Link>
               <Link
                 href="/contact"
-                className="rounded-2xl border border-white/70 px-6 py-3 text-base md:text-lg font-bold hover:bg-white/10 transition"
+                className="rounded-2xl bg-amber-300 px-6 py-3 text-base md:text-lg font-extrabold text-emerald-950 shadow-lg shadow-emerald-900/20 ring-2 ring-white/70 transition hover:bg-amber-200 hover:shadow-xl"
               >
-                Liên hệ
+                Cần tư vấn
               </Link>
             </div>
           </div>

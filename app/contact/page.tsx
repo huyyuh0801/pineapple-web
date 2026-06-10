@@ -1,307 +1,189 @@
 "use client"
 
-import Link from "next/link"
+import Image from "next/image"
 import { useMemo, useState } from "react"
 
 const BRAND = "VietPineapple"
-const PHONE = "+849xxxxxxxx" // đổi
-const ZALO_LINK = "https://zalo.me/" // đổi (có thể dùng link OA hoặc link chat)
-const MESSENGER_LINK = "https://m.me/" // đổi
-const EMAIL = "vietpineapple@gmail.com" // đổi nếu muốn nhận mail
-const DELIVERY_AREA = "TP.HCM (bạn điền rõ quận/huyện) + ship tỉnh theo đơn" // đổi
-const ORDER_HOURS = "08:00 – 20:00 (hằng ngày)" // đổi
-const ADDRESS = "Bạn điền địa chỉ/điểm hẹn (nếu có)" // đổi (nếu không có, để trống sẽ ẩn)
+const PHONE = "0357177160"
+const ZALO_LINK = "https://zalo.me/0357177160"
+const MESSENGER_LINK = "https://m.me/61574933735753"
+const EMAIL = "vietpineapple@gmail.com"
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
 }
 
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-3xl border bg-white p-6 md:p-8 shadow-sm">{children}</div>
-}
-
-function IconButton({
-  href,
+function Field({
   label,
   children,
-  className = "",
 }: {
-  href: string
   label: string
   children: React.ReactNode
-  className?: string
 }) {
   return (
-    <a
-      href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
-      rel={href.startsWith("http") ? "noreferrer" : undefined}
-      aria-label={label}
-      className={`inline-flex items-center justify-center rounded-2xl border px-4 py-3 text-base md:text-lg font-bold hover:bg-neutral-50 transition ${className}`}
-    >
+    <label className="block">
+      <span className="text-base font-bold text-neutral-700 sm:text-xl md:text-2xl">
+        {label}
+      </span>
       {children}
-    </a>
+    </label>
+  )
+}
+
+function MessengerIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="#0084FF"
+        d="M12 2C6.477 2 2 6.145 2 11.26c0 2.915 1.455 5.516 3.73 7.214V22l3.405-1.87c.91.252 1.873.39 2.865.39 5.523 0 10-4.145 10-9.26S17.523 2 12 2Zm.994 12.47-2.545-2.714-4.965 2.714 5.456-5.79 2.61 2.714 4.9-2.714-5.456 5.79Z"
+      />
+    </svg>
+  )
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.03-.25 1.13.37 2.35.57 3.56.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.21.2 2.43.57 3.56.11.36.03.75-.25 1.03l-2.2 2.2Z"
+      />
+    </svg>
   )
 }
 
 export default function ContactPage() {
   const [name, setName] = useState("")
-  const [message, setMessage] = useState("")
-
-  const quickTemplate = useMemo(() => {
-    const lines = [
-      `Xin chào ${BRAND},`,
-      `Mình muốn đặt: (loại dứa) - (số kg)`,
-      `Địa chỉ nhận:`,
-      `Thời gian nhận:`,
-      `Ghi chú (nếu có):`,
-    ]
-    return lines.join("\n")
-  }, [])
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [note, setNote] = useState("")
 
   const mailto = useMemo(() => {
-    const subject = encodeURIComponent(`[${BRAND}] Liên hệ / Đặt hàng`)
+    const subject = encodeURIComponent(`[${BRAND}] Yêu cầu tư vấn / đặt hàng`)
     const body = encodeURIComponent(
-      `${name ? `Tên: ${name}\n` : ""}${message ? `Nội dung:\n${message}\n\n` : ""}---\nMẫu đặt nhanh:\n${quickTemplate}\n`
+      [
+        `Tên: ${name}`,
+        `Số điện thoại: ${phoneNumber}`,
+        "",
+        "Ghi chú:",
+        note,
+      ].join("\n")
     )
-    return `mailto:${EMAIL}?subject=${subject}&body=${body}`
-  }, [name, message, quickTemplate])
 
-  async function copyTemplate() {
-    try {
-      await navigator.clipboard.writeText(quickTemplate)
-      alert("Đã copy mẫu đặt hàng 👌")
-    } catch {
-      alert("Không copy được. Bạn hãy copy thủ công giúp mình nhé.")
-    }
-  }
+    return `mailto:${EMAIL}?subject=${subject}&body=${body}`
+  }, [name, note, phoneNumber])
 
   return (
     <main className="bg-white text-neutral-900">
-      {/* ===== HERO ===== */}
-      <section className="bg-gradient-to-b from-emerald-50 via-lime-50 to-white">
+      <section className="bg-gradient-to-b from-lime-50 via-white to-white py-8 sm:py-10 md:py-14">
         <Container>
-          <div className="py-12 md:py-16">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-              Liên hệ
-            </h1>
-            <p className="mt-5 max-w-3xl text-lg md:text-xl leading-relaxed text-neutral-700">
-              Nhắn <b>loại dứa</b> + <b>số kg</b> + <b>địa chỉ</b> + <b>thời gian nhận</b>.
-              Mình xác nhận nhanh và sắp lịch giao phù hợp.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <IconButton href={ZALO_LINK} label="Nhắn Zalo" className="bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700">
-                Nhắn Zalo
-              </IconButton>
-
-              <IconButton href={MESSENGER_LINK} label="Messenger">
-                Messenger
-              </IconButton>
-
-              <IconButton href={`tel:${PHONE}`} label="Gọi điện">
-                Gọi {PHONE}
-              </IconButton>
-            </div>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-3xl bg-white p-5 border">
-                <div className="text-sm font-semibold text-neutral-500">Hotline</div>
-                <div className="mt-2 text-lg md:text-xl font-extrabold">{PHONE}</div>
-              </div>
-
-              <div className="rounded-3xl bg-white p-5 border">
-                <div className="text-sm font-semibold text-neutral-500">Giờ nhận đơn</div>
-                <div className="mt-2 text-lg md:text-xl font-extrabold">{ORDER_HOURS}</div>
-              </div>
-
-              <div className="rounded-3xl bg-white p-5 border">
-                <div className="text-sm font-semibold text-neutral-500">Khu vực giao</div>
-                <div className="mt-2 text-base md:text-lg font-bold text-neutral-800">
-                  {DELIVERY_AREA}
-                </div>
-              </div>
-
-              {ADDRESS?.trim() ? (
-                <div className="rounded-3xl bg-white p-5 border">
-                  <div className="text-sm font-semibold text-neutral-500">Địa chỉ / điểm hẹn</div>
-                  <div className="mt-2 text-base md:text-lg font-bold text-neutral-800">
-                    {ADDRESS}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* ===== MAIN CONTENT ===== */}
-      <section className="bg-white py-12 md:py-16">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* LEFT: QUICK ORDER */}
-            <Card>
-              <div className="text-2xl md:text-3xl font-extrabold">Đặt nhanh trong 1 phút</div>
-              <p className="mt-3 text-base md:text-lg text-neutral-700 leading-relaxed">
-                Dùng mẫu dưới đây để đặt hàng nhanh (copy rồi dán vào Zalo/Messenger).
+          <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:gap-8">
+            <div>
+              <h1 className="text-2xl font-extrabold tracking-tight text-emerald-900 sm:text-3xl md:text-4xl">
+                Liên hệ với chúng tôi
+              </h1>
+              <p className="mt-4 max-w-4xl text-justify text-base leading-relaxed text-neutral-700 sm:text-xl md:text-2xl">
+                Nếu bạn có bất kỳ câu hỏi nào về sản phẩm, đơn hàng, số lượng
+                hoặc cần được tư vấn thêm trước khi mua, hãy liên hệ với chúng
+                tôi. Đội ngũ VietPineapple luôn sẵn sàng lắng nghe, hỗ trợ và
+                phản hồi trong thời gian nhanh nhất có thể để mang đến cho bạn
+                trải nghiệm mua hàng rõ ràng, thuận tiện và an tâm.
               </p>
 
-              <pre className="mt-5 whitespace-pre-wrap rounded-2xl bg-neutral-50 p-5 text-sm md:text-base leading-relaxed border">
-{quickTemplate}
-              </pre>
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                <button
-                  onClick={copyTemplate}
-                  className="rounded-2xl bg-neutral-900 px-5 py-3 text-base md:text-lg font-extrabold text-white hover:bg-neutral-800 transition"
-                >
-                  Copy mẫu đặt hàng
-                </button>
-
-                <a
-                  href={ZALO_LINK}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl border px-5 py-3 text-base md:text-lg font-bold hover:bg-neutral-50 transition"
-                >
-                  Mở Zalo
-                </a>
-
-                <a
-                  href={MESSENGER_LINK}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl border px-5 py-3 text-base md:text-lg font-bold hover:bg-neutral-50 transition"
-                >
-                  Mở Messenger
-                </a>
-              </div>
-            </Card>
-
-            {/* RIGHT: CONTACT FORM (NO DB) */}
-            <Card>
-              <div className="text-2xl md:text-3xl font-extrabold">Gửi tin nhắn qua Email</div>
-              <p className="mt-3 text-base md:text-lg text-neutral-700 leading-relaxed">
-                Form này không cần database: bấm “Gửi Email” sẽ mở ứng dụng mail trên máy của bạn.
-              </p>
-
-              <div className="mt-6 grid gap-4">
-                <div>
-                  <label className="text-sm font-semibold text-neutral-600">Tên của bạn</label>
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Ví dụ: Huy"
-                    className="mt-2 w-full rounded-2xl border px-4 py-3 text-base md:text-lg outline-none focus:ring-2 focus:ring-emerald-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-semibold text-neutral-600">Nội dung</label>
-                  <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Bạn muốn hỏi gì / đặt loại dứa nào?"
-                    rows={5}
-                    className="mt-2 w-full rounded-2xl border px-4 py-3 text-base md:text-lg outline-none focus:ring-2 focus:ring-emerald-200"
-                  />
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={mailto}
-                    className="rounded-2xl bg-emerald-600 px-5 py-3 text-base md:text-lg font-extrabold text-white hover:bg-emerald-700 transition"
-                  >
-                    Gửi Email
-                  </a>
-
+              <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+                <div className="animate-gradient bg-gradient-to-r from-emerald-800 via-lime-600 to-yellow-500 bg-clip-text text-xl font-extrabold text-transparent sm:text-2xl md:text-3xl">
+                  Hotline:{" "}
                   <a
                     href={`tel:${PHONE}`}
-                    className="rounded-2xl border px-5 py-3 text-base md:text-lg font-bold hover:bg-neutral-50 transition"
+                    className="hover:underline"
                   >
-                    Gọi ngay
+                    {PHONE}
                   </a>
                 </div>
 
-                <p className="text-sm text-neutral-500 leading-relaxed">
-                  Email nhận: <b className="text-neutral-700">{EMAIL}</b>
-                </p>
+                <div className="flex flex-wrap gap-3 sm:justify-end">
+                  <a
+                    href={`tel:${PHONE}`}
+                    aria-label="Gọi điện"
+                    title="Gọi điện"
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border bg-white text-emerald-800 shadow-sm transition hover:bg-neutral-50 sm:h-14 sm:w-14"
+                  >
+                    <PhoneIcon />
+                  </a>
+                  <a
+                    href={ZALO_LINK}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Nhắn Zalo"
+                    title="Nhắn Zalo"
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border bg-white shadow-sm transition hover:bg-neutral-50 sm:h-14 sm:w-14"
+                  >
+                    <Image
+                      src="/images/zalo.png"
+                      alt=""
+                      width={30}
+                      height={30}
+                      className="object-contain"
+                    />
+                  </a>
+                  <a
+                    href={MESSENGER_LINK}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Messenger"
+                    title="Messenger"
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border bg-white shadow-sm transition hover:bg-neutral-50 sm:h-14 sm:w-14"
+                  >
+                    <MessengerIcon />
+                  </a>
+                </div>
               </div>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      {/* ===== FAQ ===== */}
-      <section className="bg-gradient-to-b from-white to-neutral-50 py-12 md:py-16">
-        <Container>
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Câu hỏi thường gặp</h2>
-              <p className="mt-3 max-w-3xl text-base md:text-lg text-neutral-600 leading-relaxed">
-                Một số câu hỏi phổ biến để bạn đặt nhanh hơn (nếu cần, mình sẽ tư vấn thêm).
-              </p>
             </div>
 
-            <Link
-              href="/products"
-              className="w-fit rounded-2xl border px-5 py-3 text-base md:text-lg font-bold hover:bg-neutral-50 transition"
-            >
-              Xem sản phẩm →
-            </Link>
-          </div>
+            <form className="rounded-2xl border bg-white p-4 shadow-sm sm:p-6 md:p-8">
+              <div className="text-xl font-extrabold leading-snug text-emerald-900 sm:text-2xl md:text-4xl">
+                Để lại thông tin cho chúng tôi nếu bạn cần tư vấn
+              </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {[
-              {
-                q: "Bao lâu thì nhận được hàng?",
-                a: "Tuỳ khu vực và thời điểm đặt. Bạn nhắn địa chỉ + giờ nhận, mình sẽ xác nhận ngay khung giao phù hợp.",
-              },
-              {
-                q: "Dứa có phù hợp để ép nước không?",
-                a: "Có. Bạn nhắn mục đích (ăn tươi/ép/nấu), mình sẽ tư vấn loại và độ chín phù hợp.",
-              },
-              {
-                q: "Có ship tỉnh không?",
-                a: "Có thể (tuỳ đơn). Bạn gửi tỉnh/thành + số lượng, mình kiểm tra phương án vận chuyển phù hợp.",
-              },
-              {
-                q: "Nếu hàng bị dập khi vận chuyển thì sao?",
-                a: "Mình hỗ trợ xử lý theo điều kiện cửa hàng. Bạn chụp ảnh khi nhận hàng để mình hỗ trợ nhanh nhất.",
-              },
-            ].map((item) => (
-              <details key={item.q} className="rounded-3xl border bg-white p-6 md:p-7">
-                <summary className="cursor-pointer text-lg md:text-xl font-extrabold text-neutral-900">
-                  {item.q}
-                </summary>
-                <p className="mt-3 text-base md:text-lg text-neutral-700 leading-relaxed">
-                  {item.a}
-                </p>
-              </details>
-            ))}
-          </div>
-        </Container>
-      </section>
+              <div className="mt-6 grid gap-5">
+                <Field label="Họ và tên">
+                  <input
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    placeholder="Nhập tên của bạn"
+                    className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:py-4 sm:text-xl md:text-2xl"
+                  />
+                </Field>
 
-      {/* ===== FOOTER CTA ===== */}
-      <section className="bg-neutral-900 py-10 text-neutral-200">
-        <Container>
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="text-base md:text-lg">
-              © {new Date().getFullYear()} • {BRAND}
-            </div>
+                <Field label="Số điện thoại">
+                  <input
+                    value={phoneNumber}
+                    onChange={(event) => setPhoneNumber(event.target.value)}
+                    placeholder="Ví dụ: 0357177160"
+                    inputMode="tel"
+                    className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:py-4 sm:text-xl md:text-2xl"
+                  />
+                </Field>
 
-            <div className="flex flex-wrap gap-4">
-              <a href={ZALO_LINK} target="_blank" rel="noreferrer" className="hover:underline">
-                Zalo
-              </a>
-              <a href={MESSENGER_LINK} target="_blank" rel="noreferrer" className="hover:underline">
-                Messenger
-              </a>
-              <a href={`tel:${PHONE}`} className="hover:underline">
-                Gọi {PHONE}
-              </a>
-            </div>
+                <Field label="Ghi chú (nếu có)">
+                  <textarea
+                    value={note}
+                    onChange={(event) => setNote(event.target.value)}
+                    placeholder="Sản phẩm muốn mua, số lượng, thời gian nhận hàng..."
+                    rows={5}
+                    className="mt-3 w-full resize-none rounded-xl border px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:py-4 sm:text-xl md:text-2xl"
+                  />
+                </Field>
+
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <a
+                    href={mailto}
+                    className="rounded-xl bg-emerald-700 px-5 py-3 text-base font-extrabold text-white transition hover:bg-emerald-800 sm:px-6 sm:py-4 sm:text-xl md:text-2xl"
+                  >
+                    Gửi yêu cầu
+                  </a>
+                </div>
+              </div>
+            </form>
           </div>
         </Container>
       </section>

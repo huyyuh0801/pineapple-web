@@ -1,89 +1,151 @@
 import Image from "next/image"
 import Link from "next/link"
+import ContactIcons from "@/components/ContactIcons"
+import Divider from "@/components/Divider"
+import QuantityAddToCart from "@/components/QuantityAddToCart"
 import { products } from "@/data/pineapples"
+import { formatVnd } from "@/lib/format"
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
 }
 
+function formatProductPrice(price: number | null, unit?: string | null) {
+  if (!price) return "Liên hệ"
+  return `${formatVnd(price)}${unit ? `/${unit}` : ""}`
+}
+
 export default function ProductsPage() {
   return (
-    <main className="bg-gradient-to-b from-white to-neutral-50">
-      <Container>
-        <div className="py-12 md:py-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-            Sản phẩm
-          </h1>
-          <p className="mt-4 md:mt-6 text-lg md:text-xl text-neutral-700 leading-relaxed">
-            Bấm vào từng loại để xem chi tiết. Ảnh chỉ mang tính minh hoạ — bạn có thể thay ảnh thật để đẹp hơn.
-          </p>
+    <main className="bg-white text-neutral-900">
+      <section className="bg-white">
+        <Container>
+          <div className="pt-10">
+            <Divider title="TẤT CẢ SẢN PHẨM" variant="diamond" />
+          </div>
 
-          <div className="mt-8 md:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/products/${p.slug}`}
-                className="
-                  group
-                  overflow-hidden rounded-3xl border bg-white
-                  transition-all hover:-translate-y-1 hover:shadow-xl
-                "
-              >
-                {/* ===== IMAGE ===== */}
-                <div className="relative h-48 sm:h-52 md:h-56 w-full">
-                  {"image" in p && (p as any).image ? (
-                    <Image
-                      src={(p as any).image}
-                      alt={p.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      priority={false}
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-emerald-100 via-lime-100 to-yellow-100" />
-                  )}
+          <div className="grid gap-10 pb-16 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-14 lg:pb-20">
+            {products.map((p) => {
+              const comingSoon = Boolean(p.comingSoon)
 
-                  {/* overlay nhẹ để chữ nổi hơn nếu ảnh sáng */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
-                </div>
+              return (
+                <div
+                  key={p.slug}
+                  className="relative group transition-all duration-300 ease-out hover:-translate-y-2 hover:drop-shadow-xl"
+                >
+                  <Link href={`/products/${p.slug}`} className="block">
+                    <div className="relative h-52 w-full overflow-hidden rounded sm:h-60 md:h-64">
+                      <Image
+                        src={p.image || "/images/product-placeholder.png"}
+                        alt={p.name}
+                        fill
+                        className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+                      />
 
-                {/* ===== CONTENT ===== */}
-                <div className="p-6 md:p-7">
-                  <h3 className="text-xl md:text-2xl font-extrabold tracking-tight">
-                    {p.name}
-                  </h3>
+                      {comingSoon ? (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="rotate-[-18deg] border-4 border-emerald-800 bg-white/70 px-4 py-2 text-lg font-extrabold text-emerald-800 sm:px-6 sm:text-xl">
+                            COMING SOON
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  </Link>
 
-                  <p className="mt-3 text-base md:text-lg text-neutral-600 leading-relaxed">
-                    {p.short}
-                  </p>
+                  <div className="mt-6 text-left">
+                    <Link
+                      href={`/products/${p.slug}`}
+                      className="text-xl font-extrabold text-emerald-800 underline underline-offset-4 transition-colors group-hover:text-emerald-900"
+                    >
+                      {p.name}
+                    </Link>
 
-                  <div className="mt-5 flex items-center justify-between">
-                    <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm md:text-base font-extrabold text-emerald-700">
-                      {p.price}
-                    </span>
+                    <div className="mt-3 space-y-1 text-base leading-relaxed text-neutral-800">
+                      {(p.short || "")
+                        .split("\n")
+                        .filter(Boolean)
+                        .map((line: string, i: number) => (
+                          <div key={i}>{line}</div>
+                        ))}
+                    </div>
 
-                    <span className="text-base md:text-lg font-bold text-emerald-700 group-hover:underline">
-                      Xem chi tiết →
-                    </span>
+                    {!comingSoon ? (
+                      <div className="mt-3 opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                        <Link
+                          href={`/products/${p.slug}`}
+                          className="text-sm font-bold text-emerald-800 underline underline-offset-4"
+                        >
+                          Xem chi tiết →
+                        </Link>
+                      </div>
+                    ) : null}
+
+                    <div className="mt-4">
+                      <div className="text-lg font-extrabold text-emerald-800">
+                        {formatProductPrice(p.price, p.unit)}
+                      </div>
+
+                      <div className="mt-3">
+                        {!comingSoon && p.price ? (
+                          <QuantityAddToCart
+                            product={{
+                              slug: p.slug,
+                              name: p.name,
+                              price: p.price,
+                              unit: p.unit,
+                              image: p.image,
+                            }}
+                            compact
+                          />
+                        ) : (
+                          <div className="h-10 w-10" />
+                        )}
+                      </div>
+                    </div>
+
                   </div>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-neutral-100 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold text-neutral-700"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-              </Link>
+              )
+            })}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-lime-100 py-14">
+        <Container>
+          <div className="flex flex-col items-center justify-center gap-3 rounded-full bg-lime-200 px-4 py-4 text-center text-lg font-extrabold text-emerald-900 sm:flex-row sm:text-xl">
+            <span>LIÊN HỆ ĐẶT HÀNG</span>
+            <ContactIcons />
+          </div>
+
+          <div className="mt-10 grid gap-8 text-center sm:grid-cols-3 sm:gap-10">
+            {[
+              { icon: "🚚", label: "Giao hàng toàn quốc" },
+              { icon: "📞", label: "Hỗ trợ 24/7" },
+              { icon: "🏅", label: "Cam kết chất lượng" },
+            ].map((it) => (
+              <div key={it.label}>
+                <div className="mx-auto text-4xl sm:text-5xl">{it.icon}</div>
+                <div className="mt-3 text-base font-bold text-emerald-800 sm:text-lg">
+                  {it.label}
+                </div>
+              </div>
             ))}
           </div>
-        </div>
-      </Container>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
+            {[1, 2, 3].map((i) => (
+              <a
+                key={i}
+                href="#"
+                className="flex h-44 items-center justify-center bg-emerald-800 px-4 text-center text-base font-bold text-white transition hover:bg-emerald-900 sm:h-56 sm:text-lg md:h-64"
+              >
+                Link TikTok review SP
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
     </main>
   )
 }

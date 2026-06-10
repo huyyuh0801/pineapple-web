@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Faustina:wght@400;600;700&display=swap');
 @import "tailwindcss";
-
 html,
 body {
   height: 100%;
@@ -13,11 +13,13 @@ body {
   margin: 0;
   background: white;
   color: #171717;
+
+  font-family: 'Faustina', serif; 
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden; /* tránh scroll ngang khi có phần tràn full */
+  overflow-x: hidden;
 
-  /* ✅ đọc dễ trên mobile/tablet */
   font-size: 16px;
   line-height: 1.5;
 }

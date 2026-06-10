@@ -1,291 +1,324 @@
-import Link from "next/link"
-import { products } from "@/data/pineapples"
-import HeroSlider from "@/components/HeroSlider"
-
-const PHONE = "+849xxxxxxxx" // đổi
-const ZALO_LINK = "https://zalo.me/" // đổi
+import Image from "next/image";
+import Link from "next/link";
+import { products } from "@/data/pineapples";
+import HeroSlider from "@/components/HeroSlider";
+import Divider from "@/components/Divider";
+import QuantityAddToCart from "@/components/QuantityAddToCart";
+import { formatVnd } from "@/lib/format";
 
 function Container({ children }: { children: React.ReactNode }) {
-  return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
-}
-
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-3xl border bg-white p-6 md:p-8 shadow-sm">{children}</div>
-}
-
-function SectionTitle({
-  title,
-  subtitle,
-  moreHref,
-  moreText = "Xem thêm →",
-}: {
-  title: string
-  subtitle?: string
-  moreHref: string
-  moreText?: string
-}) {
   return (
-    <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-      <div>
-        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">{title}</h2>
-        {subtitle ? (
-          <p className="mt-3 text-base md:text-lg text-neutral-600 leading-relaxed">{subtitle}</p>
-        ) : null}
-      </div>
+    <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
+  );
+}
 
-      <Link
-        href={moreHref}
-        className="w-fit rounded-2xl border px-4 py-2.5 md:px-5 md:py-3 text-base md:text-lg font-bold hover:bg-neutral-50 transition"
-      >
-        {moreText}
-      </Link>
-    </div>
-  )
+function formatProductPrice(price: number | null, unit?: string | null) {
+  if (!price) return "Liên hệ";
+  return `${formatVnd(price)}${unit ? `/${unit}` : ""}`;
 }
 
 export default function Home() {
-  const featured = products.slice(0, 3)
+  const featured = products.slice(0, 3);
 
   return (
     <main className="bg-white text-neutral-900">
       {/* ===== HERO ===== */}
-      <section className="bg-gradient-to-b from-emerald-50 via-lime-50 to-white">
+      <section className="relative bg-gradient-to-b from-lime-100 via-lime-50 to-white">
+        {/* pattern */}
+        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:url('/images/pattern-pine.png')] bg-repeat" />
+
+        {/* 🔥 FIX: Banner sát navbar */}
+        <div className="-mt-2">
+          <HeroSlider />
+        </div>
+
         <Container>
-          <div className="py-12 md:py-8">
-            {/* H1 full-width để không bị cắt gradient */}
-            <div className="relative -mx-4 sm:-mx-6 px-1 sm:px-2">
-              <h1
-                className="
-                  text-3xl sm:text-3xl md:text-6xl
-                  font-extrabold tracking-tight
-                  leading-[1.12] md:leading-[1.1]
-                  pb-2
-                  bg-gradient-to-r
-                  from-yellow-300 via-yellow-400 to-emerald-600
-                  bg-clip-text text-transparent
-                  animate-gradient
-                  drop-shadow-sm
-                "
-              >
-                Ngọt tự nhiên, đúng chất dứa Việt🍍
-              </h1>
-            </div>
-
-            {/* ===== HERO SLIDER (full width) ===== */}
-            <div className="relative mt-10 sm:mt-14 md:mt-16 -mx-4 sm:-mx-6">
-              <HeroSlider />
-            </div>
-
-            {/* <div className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4">
-              <Link
-                href="/products"
-                className="rounded-2xl bg-emerald-600 px-6 py-3 md:px-8 md:py-4 text-lg md:text-xl font-extrabold text-white hover:bg-emerald-700 transition"
-              >
-                Xem sản phẩm
-              </Link>
-              <Link
-                href="/contact"
-                className="rounded-2xl border px-6 py-3 md:px-8 md:py-4 text-lg md:text-xl font-bold hover:bg-white/70 transition"
-              >
-                Liên hệ
-              </Link>
-            </div> */}
-          </div>
-        </Container>
-      </section>
-
-      {/* ===== PRODUCTS ===== */}
-      <section className="bg-gradient-to-b from-white to-neutral-50 py-14 md:py-20">
-        <Container>
-          <SectionTitle
-            title="Sản phẩm nổi bật"
-            subtitle="Một vài loại đang bán. Xem đầy đủ danh mục ở trang Sản phẩm."
-            moreHref="/products"
-          />
-
-          <div className="mt-8 md:mt-12 grid gap-5 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/products/${p.slug}`}
-                className="group rounded-3xl border bg-white p-6 md:p-8 transition-all hover:-translate-y-1 hover:shadow-xl"
-              >
-                <h3 className="text-xl md:text-2xl font-extrabold">{p.name}</h3>
-                <p className="mt-3 md:mt-4 text-base md:text-lg text-neutral-600 leading-relaxed">
-                  {p.short}
-                </p>
-
-                <div className="mt-5 md:mt-6 flex items-center justify-between">
-                  <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm md:text-base font-extrabold text-emerald-700">
-                    {p.price}
-                  </span>
-                  <span className="text-base md:text-lg font-bold text-emerald-700 group-hover:underline">
-                    Xem chi tiết →
-                  </span>
-                </div>
-
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-neutral-100 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold text-neutral-700"
-                    >
-                      {t}
+          {/* 🔥 FIX: bỏ khoảng trống trên */}
+          <div className="pt-0 pb-4">
+            {/* ===== QUOTE ===== */}
+            <div className="pt-6 pb-8 text-center">
+              <div className="mx-auto max-w-4xl">
+                <Divider
+                  title={
+                    <span className="text-xl sm:text-2xl md:text-[32px] font-bold">
+                      &quot;HONEST FARMING - HONEST FLAVOR&quot;
                     </span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-      {/* ===== USP ===== */}
-      <section className="bg-white py-12 md:py-16">
-        <Container>
-          <div className="grid gap-5 md:gap-8 md:grid-cols-3">
-            <div className="rounded-3xl bg-emerald-50 p-7 md:p-10">
-              <div className="text-xl md:text-2xl font-extrabold">🍍 Chọn trái kỹ</div>
-              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
-                Ưu tiên độ chín phù hợp, ít xơ, vị ngọt tự nhiên.
-              </p>
-            </div>
+                  }
+                  variant="diamond"
+                />
 
-            <div className="rounded-3xl bg-lime-50 p-7 md:p-10">
-              <div className="text-xl md:text-2xl font-extrabold">🌱 Nguồn gốc rõ</div>
-              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
-                Có thể cung cấp thông tin vùng trồng và đợt thu hoạch.
-              </p>
-            </div>
+                <p className="mt-4 text-justify italic text-lg leading-relaxed sm:text-xl md:text-2xl">
+                  “Chúng tôi tin rằng hương vị ngon thật sự không thể vội vàng.
+                  Nó bắt đầu từ mảnh đất lành, từ cách trồng tử tế và sự kiên
+                  nhẫn lắng nghe tín hiệu chín mùi của tự nhiên. Tại
+                  VietPineapple, chúng tôi chọn giữ vững con đường ấy — không
+                  hoá chất, không ép nhanh — chỉ làm đúng những gì cần làm để
+                  trái dứa được là chính nó. Với chúng tôi, làm nông trung thực
+                  không chỉ là một phương pháp, mà là cách duy nhất để tạo nên
+                  hương vị mà bạn có thể đặt trọn niềm tin.”
+                </p>
+              </div>
 
-            <div className="rounded-3xl bg-yellow-50 p-7 md:p-10">
-              <div className="text-xl md:text-2xl font-extrabold">🚚 Giao nhanh</div>
-              <p className="mt-4 md:mt-5 text-lg md:text-xl leading-relaxed text-neutral-700">
-                Nhận đơn nhanh qua Zalo/điện thoại, giao đúng hẹn.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-      {/* ===== ABOUT ===== */}
-      <section className="bg-white py-14 md:py-20">
-        <Container>
-          <SectionTitle
-            title="Giới thiệu"
-            subtitle="Tầm nhìn và giá trị chúng tôi mang đến cho khách hàng."
-            moreHref="/about"
-            moreText="Xem chi tiết →"
-          />
-
-          <div className="mt-8 md:mt-12 grid gap-5 md:gap-8 md:grid-cols-2">
-            <Card>
-              <div className="text-xl md:text-2xl font-extrabold">Tầm nhìn</div>
-              <p className="mt-4 text-base md:text-lg leading-relaxed text-neutral-700">
-                Trở thành lựa chọn đáng tin cậy khi bạn cần dứa tươi ngon mỗi ngày — đặt nhanh, nhận đúng hẹn,
-                chất lượng ổn định theo từng đợt hàng.
-              </p>
-              <ul className="mt-4 list-disc space-y-2 pl-6 text-base md:text-lg text-neutral-700">
-                <li>Ưu tiên trải nghiệm mua hàng đơn giản, minh bạch.</li>
-                <li>Giữ chất lượng đồng đều, chọn trái kỹ trước khi giao.</li>
-                <li>Xây dựng uy tín lâu dài bằng sự tử tế và nhất quán.</li>
-              </ul>
-            </Card>
-
-            <Card>
-              <div className="text-xl md:text-2xl font-extrabold">Giá trị dành cho khách hàng</div>
-              <p className="mt-4 text-base md:text-lg leading-relaxed text-neutral-700">
-                Bạn nhận được dứa đúng nhu cầu: thơm – ngọt – ít xơ (tuỳ loại), cùng tư vấn sử dụng và bảo quản
-                để luôn ngon khi dùng.
-              </p>
-              <ul className="mt-4 list-disc space-y-2 pl-6 text-base md:text-lg text-neutral-700">
-                <li>
-                  <b>Dễ đặt:</b> nhắn loại + số kg + địa chỉ + giờ nhận.
-                </li>
-                <li>
-                  <b>Dễ dùng:</b> tư vấn độ chín theo mục đích.
-                </li>
-                <li>
-                  <b>An tâm:</b> đóng gói cẩn thận, hỗ trợ khi phát sinh.
-                </li>
-              </ul>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      {/* ===== CONTACT (CTA) ===== */}
-      <section className="bg-gradient-to-r from-emerald-600 to-lime-500 py-14 md:py-20 text-white">
-        <Container>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Liên hệ nhanh</h2>
-              <p className="mt-3 text-base md:text-lg text-white/90 leading-relaxed">
-                Nhắn loại dứa + số kg + địa chỉ + thời gian nhận hàng.
-              </p>
-            </div>
-
-            <Link
-              href="/contact"
-              className="w-fit rounded-2xl bg-white px-5 py-3 text-base md:text-lg font-extrabold text-emerald-700 hover:bg-white/90 transition"
-            >
-              Xem trang liên hệ →
-            </Link>
-          </div>
-
-          <div className="mt-8 md:mt-12 grid gap-5 md:gap-8 md:grid-cols-2">
-            <div className="rounded-3xl bg-white/10 p-6 md:p-8">
-              <div className="text-xl md:text-2xl font-extrabold">Hotline</div>
-              <p className="mt-3 text-lg md:text-xl">
-                <b>{PHONE}</b>
-              </p>
-              <p className="mt-2 text-base md:text-lg text-white/90">
-                Bấm gọi trực tiếp hoặc nhắn Zalo để đặt nhanh.
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-3 md:gap-4">
-                <a
-                  href={ZALO_LINK}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl bg-white px-6 py-3 text-base md:text-lg font-extrabold text-emerald-700 hover:bg-white/90 transition"
-                >
-                  Nhắn Zalo
-                </a>
-                <a
-                  href={`tel:${PHONE}`}
-                  className="rounded-2xl border border-white/70 px-6 py-3 text-base md:text-lg font-bold hover:bg-white/10 transition"
-                >
-                  Gọi điện
-                </a>
+              {/* ICON ROW */}
+              <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 md:gap-6">
+                {[
+                  { label: "Sản phẩm hữu cơ", icon: "/images/icon1.png" },
+                  { label: "Canh tác tử tế", icon: "/images/icon2.png" },
+                  { label: "Không hoá chất", icon: "/images/icon3.png" },
+                  { label: "Chín tự nhiên", icon: "/images/icon4.png" },
+                  { label: "Giữ trọn vị ngon", icon: "/images/icon5.png" },
+                ].map((it) => (
+                  <div key={it.label} className="text-center">
+                    <div className="mx-auto flex h-24 w-24 items-center justify-center sm:h-28 sm:w-28 md:h-30 md:w-30">
+                      <Image
+                        src={it.icon}
+                        alt={it.label}
+                        width={200}
+                        height={200}
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="mt-0 text-lg font-bold sm:text-xl md:text-2xl">
+                      {it.label}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white/10 p-6 md:p-8">
-              <div className="text-xl md:text-2xl font-extrabold">Cú pháp đặt hàng</div>
-              <ul className="mt-4 list-disc space-y-2 pl-6 text-base md:text-lg text-white/90">
-                <li>Loại dứa (ví dụ: Dứa MD2)</li>
-                <li>Số kg</li>
-                <li>Địa chỉ</li>
-                <li>Thời gian nhận</li>
-              </ul>
+            {/* ===== FEATURED PRODUCTS ===== */}
+            <div className="pt-2">
+              <Divider
+                title={
+                  <span className="text-xl sm:text-2xl md:text-[32px] font-bold">
+                    SẢN PHẨM NỔI BẬT
+                  </span>
+                }
+                variant="diamond"
+              />
+
+              <div className="grid gap-10 pb-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-14">
+                {featured.map((p) => (
+                  <div
+                    key={p.slug}
+                    className="relative group transition-all duration-300 ease-out hover:-translate-y-2 hover:drop-shadow-xl"
+                  >
+                    <Link href={`/products/${p.slug}`} className="block">
+                      <div className="relative h-52 w-full overflow-hidden rounded sm:h-60 md:h-64">
+                        <Image
+                          src={p.image || "/images/product-placeholder.png"}
+                          alt={p.name}
+                          fill
+                          className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+                        />
+                      </div>
+                    </Link>
+
+                    <div className="mt-6 text-left">
+                      <Link
+                        href={`/products/${p.slug}`}
+                        className="text-xl font-extrabold text-emerald-800 underline underline-offset-4 transition-colors group-hover:text-emerald-900"
+                      >
+                        {p.name}
+                      </Link>
+
+                      <div className="mt-3 space-y-1 text-base leading-relaxed text-neutral-800">
+                        {(p.short || "")
+                          .split("\n")
+                          .filter(Boolean)
+                          .map((line: string, i: number) => (
+                            <div key={i}>{line}</div>
+                          ))}
+                      </div>
+
+                      <div className="mt-3 opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                        <Link
+                          href={`/products/${p.slug}`}
+                          className="text-sm font-bold text-emerald-800 underline underline-offset-4"
+                        >
+                          Xem chi tiết →
+                        </Link>
+                      </div>
+
+                      <div className="mt-4">
+                        <div className="text-lg font-extrabold text-emerald-800">
+                          {formatProductPrice(p.price, p.unit)}
+                        </div>
+
+                        <div className="mt-3">
+                          {p.price ? (
+                            <QuantityAddToCart
+                              product={{
+                                slug: p.slug,
+                                name: p.name,
+                                price: p.price,
+                                unit: p.unit,
+                                image: p.image,
+                              }}
+                              compact
+                            />
+                          ) : (
+                            <div className="h-10 w-10" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pb-10 text-center">
+                <Link
+                  href="/products"
+                  className="inline-flex rounded-full bg-emerald-700 px-7 py-3 text-base font-extrabold text-white transition hover:bg-emerald-800 sm:text-lg"
+                >
+                  Xem tất cả sản phẩm
+                </Link>
+              </div>
+            </div>
+
+            {/* ===== FARM ===== */}
+            <Divider
+              title={
+                  <span className="text-xl sm:text-2xl md:text-[32px] font-bold">
+                  TRANG TRẠI VIETPINEAPPLE
+                </span>
+              }
+              variant="diamond"
+            />
+
+            <p className="mx-auto mb-8 max-w-4xl text-justify text-lg leading-relaxed text-neutral-700 sm:text-xl">
+              Trang trại VietPineapple được chăm sóc theo hướng xanh sạch, chú
+              trọng từng giai đoạn từ chọn giống, làm đất, tưới tiêu đến theo
+              dõi độ chín tự nhiên của trái. Mỗi luống dứa đều được kiểm tra kỹ
+              để cây phát triển khỏe, hạn chế tác động không cần thiết và giữ
+              trọn hương vị tươi ngon, an toàn khi đến tay khách hàng.
+            </p>
+
+            <div className="grid gap-4 md:grid-cols-2 pb-6">
+              <div className="grid gap-4">
+                <div className="relative h-44 sm:h-48 md:h-56 overflow-hidden rounded border">
+                  <Image
+                    src="/images/farm-1.png"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative h-28 overflow-hidden rounded border sm:h-36">
+                    <Image
+                      src="/images/farm-2.png"
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="relative h-28 overflow-hidden rounded border sm:h-36">
+                    <Image
+                      src="/images/farm-3.png"
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <div className="relative h-48 sm:h-60 md:h-[300px] overflow-hidden rounded border">
+                  <Image
+                    src="/images/farm-4.png"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-28 overflow-hidden rounded border sm:h-36">
+                  <Image
+                    src="/images/farm-5.png"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+            {/* ===== BENEFITS ===== */}
+            <div className="pt-6 pb-10">
+              <Divider
+                title={
+                  <span className="text-xl sm:text-2xl md:text-[32px] font-bold text-emerald-800">
+                    CÔNG DỤNG TUYỆT VỜI CỦA DỨA
+                  </span>
+                }
+                variant="diamond"
+              />
+
+              <div className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed space-y-4 sm:text-xl md:text-2xl">
+                <p>
+                  • <strong>Tăng cường hệ miễn dịch:</strong> Giàu Vitamin C và
+                  chất chống oxy hóa, giúp cơ thể chống lại nhiễm trùng và cảm
+                  cúm.
+                </p>
+
+                <p>
+                  • <strong>Hỗ trợ tiêu hóa:</strong> Chất xơ giúp nhu động ruột
+                  khỏe mạnh. Enzyme bromelain hỗ trợ tiêu hóa protein và giảm
+                  đầy bụng.
+                </p>
+
+                <p>
+                  • <strong>Chống viêm & giảm đau:</strong> Bromelain giúp giảm
+                  viêm, hỗ trợ xương khớp và các vấn đề viêm nhiễm.
+                </p>
+
+                <p>
+                  • <strong>Làm đẹp da & tóc:</strong> Vitamin C giúp sản sinh
+                  collagen, giúp da săn chắc, tóc khỏe.
+                </p>
+
+                <p>
+                  • <strong>Tốt cho xương:</strong> Cung cấp mangan, canxi,
+                  magie giúp xương chắc khỏe.
+                </p>
+
+                <p>
+                  • <strong>Hỗ trợ giảm cân:</strong> Ít calo, nhiều chất xơ
+                  giúp no lâu.
+                </p>
+
+                <p>
+                  • <strong>Cải thiện thị lực:</strong> Vitamin A giúp bảo vệ
+                  mắt.
+                </p>
+
+                <p>
+                  • <strong>Tốt cho tim mạch:</strong> Hỗ trợ tuần hoàn và giảm
+                  huyết áp.
+                </p>
+
+                <p>
+                  • <strong>Có tiềm năng chống ung thư:</strong> Bromelain hỗ
+                  trợ miễn dịch và ức chế tế bào xấu.
+                </p>
+              </div>
+            </div>
+            {/* ===== VIDEO ===== */}
+            <div className="mt-10 flex justify-center">
+              <div className="w-full max-w-4xl aspect-video">
+                <iframe
+                  className="w-full h-full rounded-xl shadow-md"
+                  src="https://www.youtube.com/embed/I5tSvObKad8"
+                  title="YouTube video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </div>
         </Container>
       </section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className="bg-neutral-900 py-8 md:py-10 text-neutral-300">
-        <Container>
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm md:text-base">
-            <div>© {new Date().getFullYear()} • VietPineapple</div>
-            <div className="flex flex-wrap gap-4 md:gap-6">
-              <Link href="/">Trang chủ</Link>
-              <Link href="/products">Sản phẩm</Link>
-              <Link href="/about">Giới thiệu</Link>
-              <Link href="/contact">Liên hệ</Link>
-            </div>
-          </div>
-        </Container>
-      </footer>
     </main>
-  )
+  );
 }
