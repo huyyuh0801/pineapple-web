@@ -11,7 +11,7 @@ export default function ContactIcons() {
         href={`tel:${PHONE}`}
         aria-label="Gọi điện"
         title="Gọi điện"
-        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border bg-white text-emerald-800 shadow-sm transition hover:bg-neutral-50"
+        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border bg-white text-[#307330] shadow-sm transition hover:bg-neutral-50"
       >
         <PhoneIcon />
       </a>

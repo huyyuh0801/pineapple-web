@@ -30,7 +30,7 @@ export default function CartButton() {
       >
         <CartIcon />
         {totalItems > 0 ? (
-          <span className="absolute -right-1 -top-1 grid h-6 min-w-6 place-items-center rounded-full bg-emerald-800 px-1 text-xs font-extrabold text-white">
+          <span className="absolute -right-1 -top-1 grid h-6 min-w-6 place-items-center rounded-full bg-[#307330] px-1 text-xs font-extrabold text-white">
             {totalItems}
           </span>
         ) : null}
@@ -47,7 +47,7 @@ export default function CartButton() {
 
           <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b px-5 py-4">
-              <div className="text-2xl font-extrabold text-emerald-900">
+              <div className="text-2xl font-extrabold text-[#307330]">
                 Giỏ hàng
               </div>
               <button
@@ -65,7 +65,7 @@ export default function CartButton() {
                 <div className="space-y-4">
                   {items.map((item) => (
                     <div key={item.slug} className="flex gap-3 border-b pb-4">
-                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded bg-lime-50">
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded bg-[#307330]/5">
                         <Image
                           src={item.image || "/images/product-placeholder.png"}
                           alt={item.name}
@@ -75,7 +75,7 @@ export default function CartButton() {
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <div className="font-extrabold text-emerald-900">
+                        <div className="font-extrabold text-[#307330]">
                           {item.name}
                         </div>
                         <div className="mt-1 text-sm font-bold text-neutral-600">
@@ -116,7 +116,7 @@ export default function CartButton() {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-2xl bg-lime-50 p-5 text-center font-bold text-neutral-700">
+                <div className="rounded-2xl bg-[#307330]/5 p-5 text-center font-bold text-neutral-700">
                   Giỏ hàng đang trống.
                 </div>
               )}
@@ -125,13 +125,13 @@ export default function CartButton() {
             <div className="border-t px-5 py-4">
               <div className="flex items-center justify-between text-lg font-extrabold">
                 <span>Tổng cộng</span>
-                <span className="text-emerald-800">{formatVnd(totalPrice)}</span>
+                <span className="text-[#307330]">{formatVnd(totalPrice)}</span>
               </div>
 
               <div className="mt-4 grid gap-3">
                 <a
                   href={`tel:${PHONE}`}
-                  className="rounded-xl bg-emerald-700 px-5 py-3 text-center font-extrabold text-white transition hover:bg-emerald-800"
+                  className="rounded-xl bg-[#307330] px-5 py-3 text-center font-extrabold text-white transition hover:bg-[#307330]"
                 >
                   Gọi đặt hàng
                 </a>

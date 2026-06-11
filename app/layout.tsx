@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <CartProvider>
           <Navbar />
-          <div className="h-[76px] md:h-[84px]" aria-hidden="true" />
+          <div className="h-[114px] md:h-[126px]" aria-hidden="true" />
           <FloatingSocials />
           {children}
           <Footer />

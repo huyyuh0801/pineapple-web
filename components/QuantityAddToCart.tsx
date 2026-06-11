@@ -30,7 +30,7 @@ export default function QuantityAddToCart({
       <button
         type="button"
         onClick={() => updateQuantity(quantity - 1)}
-        className={`${controlSize} rounded border bg-white text-lg font-extrabold text-emerald-800 transition hover:bg-lime-50`}
+        className={`${controlSize} rounded border bg-white text-lg font-extrabold text-[#307330] transition hover:bg-[#307330]/5`}
         aria-label="Giảm số lượng"
       >
         -
@@ -40,14 +40,14 @@ export default function QuantityAddToCart({
         value={quantity}
         onChange={(event) => updateQuantity(Number(event.target.value))}
         inputMode="numeric"
-        className={`${inputSize} rounded border text-center font-extrabold text-emerald-900 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-lime-200`}
+        className={`${inputSize} rounded border text-center font-extrabold text-[#307330] outline-none focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/20`}
         aria-label="Số lượng"
       />
 
       <button
         type="button"
         onClick={() => updateQuantity(quantity + 1)}
-        className={`${controlSize} rounded border bg-white text-lg font-extrabold text-emerald-800 transition hover:bg-lime-50`}
+        className={`${controlSize} rounded border bg-white text-lg font-extrabold text-[#307330] transition hover:bg-[#307330]/5`}
         aria-label="Tăng số lượng"
       >
         +
@@ -56,7 +56,7 @@ export default function QuantityAddToCart({
       <AddToCartButton
         product={product}
         quantity={quantity}
-        className={`${controlSize} inline-flex items-center justify-center rounded bg-emerald-700 text-white transition-all duration-200 hover:bg-emerald-800`}
+        className={`${controlSize} inline-flex items-center justify-center rounded bg-[#307330] text-white transition-all duration-200 hover:bg-[#307330]`}
         title="Thêm vào giỏ hàng"
       >
         🛒

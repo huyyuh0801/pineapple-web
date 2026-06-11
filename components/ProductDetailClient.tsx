@@ -54,7 +54,7 @@ export default function ProductDetailClient({
       <div className="grid gap-8 lg:grid-cols-2">
         {/* LEFT: IMAGE */}
         <div className="rounded-3xl border bg-white overflow-hidden">
-          <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-emerald-50 via-lime-50 to-yellow-50">
+          <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-[#307330]/5 via-[#307330]/5 to-yellow-50">
             {product.image ? (
               <Image
                 src={product.image}
@@ -94,7 +94,7 @@ export default function ProductDetailClient({
           </h1>
 
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-emerald-100 px-4 py-2 text-base md:text-lg font-extrabold text-emerald-700">
+            <span className="rounded-full bg-[#307330]/10 px-4 py-2 text-base md:text-lg font-extrabold text-[#307330]">
               {product.price}
             </span>
 
@@ -163,7 +163,7 @@ export default function ProductDetailClient({
               href={zaloHref}
               target="_blank"
               rel="noreferrer"
-              className="rounded-2xl bg-emerald-600 px-6 py-3 text-center text-base md:text-lg font-extrabold text-white hover:bg-emerald-700 transition"
+              className="rounded-2xl bg-[#307330] px-6 py-3 text-center text-base md:text-lg font-extrabold text-white hover:bg-[#307330] transition"
             >
               Đặt qua Zalo
             </a>

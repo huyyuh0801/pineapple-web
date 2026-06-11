@@ -92,7 +92,7 @@ export default async function ProductDetailPage({
             <div className="mb-8">
               <Link
                 href="/products"
-                className="font-bold text-emerald-800 underline underline-offset-4"
+                className="font-bold text-[#307330] underline underline-offset-4"
               >
                 ← Quay lại sản phẩm
               </Link>
@@ -112,7 +112,7 @@ export default async function ProductDetailPage({
               </div>
 
               <div className="lg:pt-2">
-                <h1 className="font-serif text-2xl font-extrabold text-emerald-800 sm:text-3xl md:text-4xl">
+                <h1 className="font-serif text-2xl font-extrabold text-[#307330] sm:text-3xl md:text-4xl">
                   {product.name}
                 </h1>
 
@@ -125,7 +125,7 @@ export default async function ProductDetailPage({
                 ) : null}
 
                 <div className="mt-8">
-                  <div className="font-serif text-2xl font-extrabold text-emerald-800 sm:text-3xl">
+                  <div className="font-serif text-2xl font-extrabold text-[#307330] sm:text-3xl">
                     {formatProductPrice(product.price, product.unit)}
                   </div>
 
@@ -151,7 +151,7 @@ export default async function ProductDetailPage({
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <a
                     href="#lien-he"
-                    className="inline-flex w-full items-center justify-center rounded-full bg-lime-200 px-6 py-3 text-base font-extrabold text-emerald-900 transition hover:bg-lime-300 sm:w-auto sm:px-10 sm:text-lg"
+                    className="inline-flex w-full items-center justify-center rounded-full bg-[#307330]/15 px-6 py-3 text-base font-extrabold text-[#307330] transition hover:bg-[#307330]/25 sm:w-auto sm:px-10 sm:text-lg"
                   >
                     LIÊN HỆ ĐẶT HÀNG
                   </a>
@@ -160,7 +160,7 @@ export default async function ProductDetailPage({
             </div>
 
             <div className="mt-10 sm:mt-14">
-              <h2 className="font-serif text-2xl font-extrabold text-emerald-800 sm:text-3xl">
+              <h2 className="font-serif text-2xl font-extrabold text-[#307330] sm:text-3xl">
                 Mô tả sản phẩm
               </h2>
 
@@ -211,10 +211,10 @@ export default async function ProductDetailPage({
                   { icon: "🏅", label: "Cam kết chất lượng" },
                 ].map((item) => (
                   <div key={item.label}>
-                    <div className="mx-auto text-4xl text-emerald-800 sm:text-5xl">
+                    <div className="mx-auto text-4xl text-[#307330] sm:text-5xl">
                       {item.icon}
                     </div>
-                    <div className="mt-2 text-sm font-bold text-emerald-800">
+                    <div className="mt-2 text-sm font-bold text-[#307330]">
                       {item.label}
                     </div>
                   </div>

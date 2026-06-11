@@ -29,7 +29,7 @@ function flyToCart(source: HTMLElement) {
   const flyer = document.createElement("div")
   flyer.textContent = "🛒"
   flyer.className =
-    "pointer-events-none fixed z-[200] grid h-10 w-10 place-items-center rounded-full bg-lime-200 text-2xl shadow-xl"
+    "pointer-events-none fixed z-[200] grid h-10 w-10 place-items-center rounded-full bg-[#307330]/15 text-2xl shadow-xl"
   flyer.style.left = `${startX - 20}px`
   flyer.style.top = `${startY - 20}px`
   document.body.appendChild(flyer)
@@ -101,7 +101,7 @@ export default function AddToCartButton({
           addItem(product, quantity)
         }}
         disabled={disabled}
-        className={`${className} ${active ? "ring-4 ring-lime-300/80" : ""}`}
+        className={`${className} ${active ? "ring-4 ring-[#307330]/30" : ""}`}
         aria-label={title}
         title={title}
       >

@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <main className="bg-white text-neutral-900">
       {/* ===== HERO ===== */}
-      <section className="relative bg-gradient-to-b from-lime-100 via-lime-50 to-white">
+      <section className="relative bg-white">
         {/* pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:url('/images/pattern-pine.png')] bg-repeat" />
 
@@ -117,7 +117,7 @@ export default function Home() {
                     <div className="mt-6 text-left">
                       <Link
                         href={`/products/${p.slug}`}
-                        className="text-xl font-extrabold text-emerald-800 underline underline-offset-4 transition-colors group-hover:text-emerald-900"
+                        className="text-xl font-extrabold text-[#307330] underline underline-offset-4 transition-colors group-hover:text-[#307330]"
                       >
                         {p.name}
                       </Link>
@@ -134,14 +134,14 @@ export default function Home() {
                       <div className="mt-3 opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                         <Link
                           href={`/products/${p.slug}`}
-                          className="text-sm font-bold text-emerald-800 underline underline-offset-4"
+                          className="text-sm font-bold text-[#307330] underline underline-offset-4"
                         >
                           Xem chi tiết →
                         </Link>
                       </div>
 
                       <div className="mt-4">
-                        <div className="text-lg font-extrabold text-emerald-800">
+                        <div className="text-lg font-extrabold text-[#307330]">
                           {formatProductPrice(p.price, p.unit)}
                         </div>
 
@@ -170,7 +170,7 @@ export default function Home() {
               <div className="pb-10 text-center">
                 <Link
                   href="/products"
-                  className="inline-flex rounded-full bg-emerald-700 px-7 py-3 text-base font-extrabold text-white transition hover:bg-emerald-800 sm:text-lg"
+                  className="inline-flex rounded-full bg-[#307330] px-7 py-3 text-base font-extrabold text-white transition hover:bg-[#307330] sm:text-lg"
                 >
                   Xem tất cả sản phẩm
                 </Link>
@@ -187,7 +187,7 @@ export default function Home() {
               variant="diamond"
             />
 
-            <p className="mx-auto mb-8 max-w-4xl text-justify text-lg leading-relaxed text-neutral-700 sm:text-xl">
+            <p className="mx-auto mb-8 max-w-4xl text-justify italic text-lg leading-relaxed sm:text-xl md:text-2xl">
               Trang trại VietPineapple được chăm sóc theo hướng xanh sạch, chú
               trọng từng giai đoạn từ chọn giống, làm đất, tưới tiêu đến theo
               dõi độ chín tự nhiên của trái. Mỗi luống dứa đều được kiểm tra kỹ
@@ -248,7 +248,7 @@ export default function Home() {
             <div className="pt-6 pb-10">
               <Divider
                 title={
-                  <span className="text-xl sm:text-2xl md:text-[32px] font-bold text-emerald-800">
+                  <span className="text-xl sm:text-2xl md:text-[32px] font-bold text-[#307330]">
                     CÔNG DỤNG TUYỆT VỜI CỦA DỨA
                   </span>
                 }

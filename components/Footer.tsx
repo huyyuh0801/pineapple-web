@@ -6,18 +6,18 @@ function Container({ children }: { children: React.ReactNode }) {
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-r from-lime-100 via-lime-200 to-yellow-300">
+    <footer className="relative overflow-hidden bg-[#307330] text-white">
 
       {/* pattern */}
-      <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:url('/images/pattern-pine.png')] bg-repeat" />
+      <div className="pointer-events-none absolute inset-0 opacity-10 [background-image:url('/images/pattern-pine.png')] bg-repeat" />
 
       <Container>
-        <div className="relative z-10 flex flex-col gap-8 py-8 sm:py-10 md:flex-row md:items-center md:justify-between">
+        <div className="relative z-10 flex flex-col gap-4 py-5 sm:py-6 md:flex-row md:items-center md:justify-between">
 
           {/* LEFT */}
-          <div className="text-center text-base leading-relaxed text-neutral-900 md:text-left">
+          <div className="text-center text-[25px] leading-relaxed text-white md:text-left">
             
-            <div className="text-xl font-extrabold mb-2">
+            <div className="mb-1 text-[25px] font-extrabold">
               Công ty TNHH VietPineapple
             </div>
 
@@ -25,7 +25,7 @@ export default function Footer() {
             <div>Hotline: 0357177160</div>
 
             {/* SOCIAL */}
-            <div className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
+            <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
 
               {/* FACEBOOK */}
               <a
@@ -34,15 +34,15 @@ export default function Footer() {
                 rel="noreferrer"
                 className="
                   flex items-center gap-2
-                  px-3 py-2 sm:px-4
+                  px-3.5 py-2
                   rounded-full
-                  bg-white/70 hover:bg-white
-                  shadow-sm
+                  bg-white text-[#307330] ring-1 ring-white/70 hover:bg-[#307330]/5
+                  shadow-md
                   transition
                 "
               >
                 <FacebookIcon />
-                <span className="font-semibold">Facebook</span>
+                <span className="text-[25px] font-extrabold text-[#307330]">Facebook</span>
               </a>
 
               {/* TIKTOK */}
@@ -52,15 +52,15 @@ export default function Footer() {
                 rel="noreferrer"
                 className="
                   flex items-center gap-2
-                  px-3 py-2 sm:px-4
+                  px-3.5 py-2
                   rounded-full
-                  bg-white/70 hover:bg-white
-                  shadow-sm
+                  bg-white text-[#307330] ring-1 ring-white/70 hover:bg-[#307330]/5
+                  shadow-md
                   transition
                 "
               >
                 <TikTokIcon />
-                <span className="font-semibold">Tiktok</span>
+                <span className="text-[25px] font-extrabold text-[#307330]">Tiktok</span>
               </a>
 
               {/* ZALO */}
@@ -70,15 +70,15 @@ export default function Footer() {
                 rel="noreferrer"
                 className="
                   flex items-center gap-2
-                  px-3 py-2 sm:px-4
+                  px-3.5 py-2
                   rounded-full
-                  bg-white/70 hover:bg-white
-                  shadow-sm
+                  bg-white text-[#307330] ring-1 ring-white/70 hover:bg-[#307330]/5
+                  shadow-md
                   transition
                 "
               >
                 <ZaloIcon />
-                <span className="font-semibold">Zalo</span>
+                <span className="text-[25px] font-extrabold text-[#307330]">Zalo</span>
               </a>
 
             </div>
@@ -86,13 +86,13 @@ export default function Footer() {
 
           {/* RIGHT – LOGO */}
           <div className="flex justify-center md:justify-end">
-            <div className="p-2">
+            <div className="p-0">
               <Image
                 src="/images/logo1.png"
                 alt="VietPineapple logo"
-                width={200}
-                height={200}
-                className="h-32 w-32 object-contain sm:h-40 sm:w-40 md:h-[200px] md:w-[200px]"
+                width={260}
+                height={260}
+                className="h-40 w-40 object-contain sm:h-48 sm:w-48 md:h-56 md:w-56"
               />
             </div>
           </div>

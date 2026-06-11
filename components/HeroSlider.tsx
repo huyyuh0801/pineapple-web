@@ -131,7 +131,7 @@ export default function HeroSlider({
             key={i}
             onClick={() => goTo(i)}
             className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full transition ${
-              i === index ? "bg-emerald-600 scale-110" : "bg-gray-400"
+              i === index ? "bg-[#307330] scale-110" : "bg-gray-400"
             }`}
           />
         ))}

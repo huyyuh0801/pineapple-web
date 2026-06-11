@@ -74,11 +74,11 @@ export default function ContactPage() {
 
   return (
     <main className="bg-white text-neutral-900">
-      <section className="bg-gradient-to-b from-lime-50 via-white to-white py-8 sm:py-10 md:py-14">
+      <section className="bg-gradient-to-b from-[#307330]/5 via-white to-white py-8 sm:py-10 md:py-14">
         <Container>
           <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:gap-8">
             <div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-emerald-900 sm:text-3xl md:text-4xl">
+              <h1 className="text-2xl font-extrabold tracking-tight text-[#307330] sm:text-3xl md:text-4xl">
                 Liên hệ với chúng tôi
               </h1>
               <p className="mt-4 max-w-4xl text-justify text-base leading-relaxed text-neutral-700 sm:text-xl md:text-2xl">
@@ -90,7 +90,7 @@ export default function ContactPage() {
               </p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
-                <div className="animate-gradient bg-gradient-to-r from-emerald-800 via-lime-600 to-yellow-500 bg-clip-text text-xl font-extrabold text-transparent sm:text-2xl md:text-3xl">
+                <div className="animate-gradient bg-gradient-to-r from-[#307330] via-[#307330] to-yellow-500 bg-clip-text text-xl font-extrabold text-transparent sm:text-2xl md:text-3xl">
                   Hotline:{" "}
                   <a
                     href={`tel:${PHONE}`}
@@ -105,7 +105,7 @@ export default function ContactPage() {
                     href={`tel:${PHONE}`}
                     aria-label="Gọi điện"
                     title="Gọi điện"
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border bg-white text-emerald-800 shadow-sm transition hover:bg-neutral-50 sm:h-14 sm:w-14"
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border bg-white text-[#307330] shadow-sm transition hover:bg-neutral-50 sm:h-14 sm:w-14"
                   >
                     <PhoneIcon />
                   </a>
@@ -140,7 +140,7 @@ export default function ContactPage() {
             </div>
 
             <form className="rounded-2xl border bg-white p-4 shadow-sm sm:p-6 md:p-8">
-              <div className="text-xl font-extrabold leading-snug text-emerald-900 sm:text-2xl md:text-4xl">
+              <div className="text-xl font-extrabold leading-snug text-[#307330] sm:text-2xl md:text-4xl">
                 Để lại thông tin cho chúng tôi nếu bạn cần tư vấn
               </div>
 
@@ -150,7 +150,7 @@ export default function ContactPage() {
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                     placeholder="Nhập tên của bạn"
-                    className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:py-4 sm:text-xl md:text-2xl"
+                    className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
 
@@ -160,7 +160,7 @@ export default function ContactPage() {
                     onChange={(event) => setPhoneNumber(event.target.value)}
                     placeholder="Ví dụ: 0357177160"
                     inputMode="tel"
-                    className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:py-4 sm:text-xl md:text-2xl"
+                    className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
 
@@ -170,14 +170,14 @@ export default function ContactPage() {
                     onChange={(event) => setNote(event.target.value)}
                     placeholder="Sản phẩm muốn mua, số lượng, thời gian nhận hàng..."
                     rows={5}
-                    className="mt-3 w-full resize-none rounded-xl border px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 sm:py-4 sm:text-xl md:text-2xl"
+                    className="mt-3 w-full resize-none rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
 
                 <div className="flex flex-wrap gap-3 pt-1">
                   <a
                     href={mailto}
-                    className="rounded-xl bg-emerald-700 px-5 py-3 text-base font-extrabold text-white transition hover:bg-emerald-800 sm:px-6 sm:py-4 sm:text-xl md:text-2xl"
+                    className="rounded-xl bg-[#307330] px-5 py-3 text-base font-extrabold text-white transition hover:bg-[#307330] sm:px-6 sm:py-4 sm:text-xl md:text-2xl"
                   >
                     Gửi yêu cầu
                   </a>

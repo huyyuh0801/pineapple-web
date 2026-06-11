@@ -15,6 +15,20 @@ function formatProductPrice(price: number | null, unit?: string | null) {
   return `${formatVnd(price)}${unit ? `/${unit}` : ""}`
 }
 
+function TikTokEmbed({ videoId }: { videoId: string }) {
+  return (
+    <div className="min-h-[560px] overflow-hidden bg-white">
+      <iframe
+        src={`https://www.tiktok.com/embed/v2/${videoId}`}
+        title="TikTok review SP"
+        className="h-[560px] w-full border-0"
+        allow="fullscreen; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
+  )
+}
+
 export default function ProductsPage() {
   return (
     <main className="bg-white text-neutral-900">
@@ -44,7 +58,7 @@ export default function ProductsPage() {
 
                       {comingSoon ? (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="rotate-[-18deg] border-4 border-emerald-800 bg-white/70 px-4 py-2 text-lg font-extrabold text-emerald-800 sm:px-6 sm:text-xl">
+                          <div className="rotate-[-18deg] border-4 border-[#307330] bg-white/70 px-4 py-2 text-lg font-extrabold text-[#307330] sm:px-6 sm:text-xl">
                             COMING SOON
                           </div>
                         </div>
@@ -55,7 +69,7 @@ export default function ProductsPage() {
                   <div className="mt-6 text-left">
                     <Link
                       href={`/products/${p.slug}`}
-                      className="text-xl font-extrabold text-emerald-800 underline underline-offset-4 transition-colors group-hover:text-emerald-900"
+                      className="text-xl font-extrabold text-[#307330] underline underline-offset-4 transition-colors group-hover:text-[#307330]"
                     >
                       {p.name}
                     </Link>
@@ -73,7 +87,7 @@ export default function ProductsPage() {
                       <div className="mt-3 opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                         <Link
                           href={`/products/${p.slug}`}
-                          className="text-sm font-bold text-emerald-800 underline underline-offset-4"
+                          className="text-sm font-bold text-[#307330] underline underline-offset-4"
                         >
                           Xem chi tiết →
                         </Link>
@@ -81,7 +95,7 @@ export default function ProductsPage() {
                     ) : null}
 
                     <div className="mt-4">
-                      <div className="text-lg font-extrabold text-emerald-800">
+                      <div className="text-lg font-extrabold text-[#307330]">
                         {formatProductPrice(p.price, p.unit)}
                       </div>
 
@@ -111,9 +125,9 @@ export default function ProductsPage() {
         </Container>
       </section>
 
-      <section className="bg-lime-100 py-14">
+      <section className="bg-[#307330]/10 py-14">
         <Container>
-          <div className="flex flex-col items-center justify-center gap-3 rounded-full bg-lime-200 px-4 py-4 text-center text-lg font-extrabold text-emerald-900 sm:flex-row sm:text-xl">
+          <div className="flex flex-col items-center justify-center gap-3 rounded-full bg-[#307330]/15 px-4 py-4 text-center text-lg font-extrabold text-[#307330] sm:flex-row sm:text-xl">
             <span>LIÊN HỆ ĐẶT HÀNG</span>
             <ContactIcons />
           </div>
@@ -126,7 +140,7 @@ export default function ProductsPage() {
             ].map((it) => (
               <div key={it.label}>
                 <div className="mx-auto text-4xl sm:text-5xl">{it.icon}</div>
-                <div className="mt-3 text-base font-bold text-emerald-800 sm:text-lg">
+                <div className="mt-3 text-base font-bold text-[#307330] sm:text-lg">
                   {it.label}
                 </div>
               </div>
@@ -134,14 +148,12 @@ export default function ProductsPage() {
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <a
-                key={i}
-                href="#"
-                className="flex h-44 items-center justify-center bg-emerald-800 px-4 text-center text-base font-bold text-white transition hover:bg-emerald-900 sm:h-56 sm:text-lg md:h-64"
-              >
-                Link TikTok review SP
-              </a>
+            {[
+              "7585355968448335125",
+              "7522382828106042642",
+              "7578679910122720520",
+            ].map((videoId) => (
+              <TikTokEmbed key={videoId} videoId={videoId} />
             ))}
           </div>
         </Container>

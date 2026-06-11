@@ -1,7 +1,7 @@
 import Image from "next/image"
 
 const socialButtonClass =
-  "inline-flex h-16 w-16 items-center justify-center rounded-full border-2 border-lime-300/80 bg-white shadow-2xl shadow-emerald-900/20 ring-4 ring-white/70 backdrop-blur transition hover:-translate-y-0.5 hover:scale-105 hover:bg-lime-50 hover:shadow-xl sm:h-[68px] sm:w-[68px]"
+  "inline-flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#307330]/30 bg-white shadow-2xl shadow-[#307330]/20 ring-4 ring-white/70 backdrop-blur transition hover:-translate-y-0.5 hover:scale-105 hover:bg-[#307330]/5 hover:shadow-xl sm:h-[68px] sm:w-[68px]"
 
 export default function FloatingSocials() {
   return (
