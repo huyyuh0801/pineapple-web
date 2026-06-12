@@ -48,7 +48,7 @@ export default function Navbar() {
             <NavItem href="/contact">Liên hệ</NavItem>
           </nav>
 
-          <div className="absolute right-3 top-3 sm:static sm:translate-y-2 md:translate-y-2.5">
+          <div className="absolute right-3 top-3 sm:relative sm:right-auto sm:top-2 md:top-2.5">
             <CartButton />
           </div>
         </div>
