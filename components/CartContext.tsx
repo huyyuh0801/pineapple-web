@@ -30,20 +30,58 @@ const STORAGE_KEY = "vietpineapple-cart"
 
 export { formatVnd }
 
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return []
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY)
-      return raw ? JSON.parse(raw) : []
-    } catch {
-      return []
-    }
+function sanitizeCartItems(value: unknown): CartItem[] {
+  if (!Array.isArray(value)) return []
+
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return []
+
+    const candidate = item as Partial<CartItem>
+    const slug = typeof candidate.slug === "string" ? candidate.slug : ""
+    const name = typeof candidate.name === "string" ? candidate.name : ""
+    const price =
+      typeof candidate.price === "number" && Number.isFinite(candidate.price)
+        ? candidate.price
+        : 0
+    const quantity =
+      typeof candidate.quantity === "number" && Number.isFinite(candidate.quantity)
+        ? Math.floor(candidate.quantity)
+        : 0
+
+    if (!slug || !name || price <= 0 || quantity <= 0) return []
+
+    return [
+      {
+        slug,
+        name,
+        price,
+        quantity: Math.min(quantity, 99),
+        unit: typeof candidate.unit === "string" ? candidate.unit : null,
+        image: typeof candidate.image === "string" ? candidate.image : null,
+      },
+    ]
   })
+}
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [items, setItems] = useState<CartItem[]>([])
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY)
+      setItems(raw ? sanitizeCartItems(JSON.parse(raw)) : [])
+    } catch {
+      setItems([])
+    } finally {
+      setReady(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!ready) return
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-  }, [items])
+  }, [items, ready])
 
   const value = useMemo<CartContextValue>(() => {
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
@@ -58,18 +96,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
       totalPrice,
       addItem(product, quantity = 1) {
         const amount = Math.max(1, Math.floor(quantity))
+        if (!Number.isFinite(product.price) || product.price <= 0) return
 
         setItems((current) => {
           const existing = current.find((item) => item.slug === product.slug)
           if (existing) {
             return current.map((item) =>
               item.slug === product.slug
-                ? { ...item, quantity: item.quantity + amount }
+                ? { ...item, quantity: Math.min(item.quantity + amount, 99) }
                 : item
             )
           }
 
-          return [...current, { ...product, quantity: amount }]
+          return [...current, { ...product, quantity: Math.min(amount, 99) }]
         })
       },
       decrementItem(slug) {
