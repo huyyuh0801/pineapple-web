@@ -81,7 +81,7 @@ export default function ContactPage() {
               <h1 className="text-2xl font-extrabold tracking-tight text-[#307330] sm:text-3xl md:text-4xl">
                 Liên hệ với chúng tôi
               </h1>
-              <p className="mt-4 max-w-4xl text-justify text-base leading-relaxed text-neutral-700 sm:text-xl md:text-2xl">
+              <p className="mt-4 max-w-4xl text-justify text-base leading-relaxed text-neutral-700 sm:text-lg md:text-xl lg:text-2xl">
                 Nếu bạn có bất kỳ câu hỏi nào về sản phẩm, đơn hàng, số lượng
                 hoặc cần được tư vấn thêm trước khi mua, hãy liên hệ với chúng
                 tôi. Đội ngũ VietPineapple luôn sẵn sàng lắng nghe, hỗ trợ và

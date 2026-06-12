@@ -42,7 +42,7 @@ export default function AboutPage() {
               Câu chuyện VietPineapple
             </h1>
 
-            <div className="mt-8 text-justify text-lg italic leading-relaxed sm:text-xl md:text-2xl">
+            <div className="mt-8 text-justify text-base italic leading-relaxed sm:text-lg md:text-xl lg:text-2xl">
               <p>
                 VietPineapple bắt đầu từ một vườn dứa nhỏ, nơi chúng tôi học cách
                 quan sát từng luống cây, từng mùa nắng mưa và từng dấu hiệu chín tự
@@ -107,7 +107,7 @@ export default function AboutPage() {
                 variant="diamond"
               />
 
-              <p className="mx-auto mt-6 max-w-4xl text-justify text-lg italic leading-relaxed sm:text-xl md:text-2xl">
+              <p className="mx-auto mt-6 max-w-4xl text-justify text-base italic leading-relaxed sm:text-lg md:text-xl lg:text-2xl">
                 “Hương vị ngon thật sự bắt đầu từ mảnh đất lành, cách trồng tử tế và
                 sự kiên nhẫn chờ trái chín tự nhiên. Tại VietPineapple, chúng tôi
                 chọn làm nông trung thực - không hoá chất, không ép nhanh - để mỗi

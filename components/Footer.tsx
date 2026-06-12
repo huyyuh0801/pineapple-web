@@ -15,9 +15,9 @@ export default function Footer() {
         <div className="relative z-10 flex flex-col gap-4 py-5 sm:py-6 md:flex-row md:items-center md:justify-between">
 
           {/* LEFT */}
-          <div className="text-center text-[25px] leading-relaxed text-white md:text-left">
+          <div className="text-center text-base leading-relaxed text-white sm:text-xl md:text-left md:text-[25px]">
             
-            <div className="mb-1 text-[25px] font-extrabold">
+            <div className="mb-1 text-lg font-extrabold sm:text-xl md:text-[25px]">
               Công ty TNHH VietPineapple
             </div>
 
@@ -42,7 +42,7 @@ export default function Footer() {
                 "
               >
                 <FacebookIcon />
-                <span className="text-[25px] font-extrabold text-[#307330]">Facebook</span>
+                <span className="text-base font-extrabold text-[#307330] sm:text-xl md:text-[25px]">Facebook</span>
               </a>
 
               {/* TIKTOK */}
@@ -60,7 +60,7 @@ export default function Footer() {
                 "
               >
                 <TikTokIcon />
-                <span className="text-[25px] font-extrabold text-[#307330]">Tiktok</span>
+                <span className="text-base font-extrabold text-[#307330] sm:text-xl md:text-[25px]">Tiktok</span>
               </a>
 
               {/* ZALO */}
@@ -78,7 +78,7 @@ export default function Footer() {
                 "
               >
                 <ZaloIcon />
-                <span className="text-[25px] font-extrabold text-[#307330]">Zalo</span>
+                <span className="text-base font-extrabold text-[#307330] sm:text-xl md:text-[25px]">Zalo</span>
               </a>
 
             </div>

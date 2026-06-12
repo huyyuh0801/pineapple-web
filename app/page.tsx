@@ -47,7 +47,7 @@ export default function Home() {
                   variant="diamond"
                 />
 
-                <p className="mt-4 text-justify italic text-lg leading-relaxed sm:text-xl md:text-2xl">
+                <p className="mt-4 text-justify italic text-base leading-relaxed sm:text-lg md:text-xl lg:text-2xl">
                   “Chúng tôi tin rằng hương vị ngon thật sự không thể vội vàng.
                   Nó bắt đầu từ mảnh đất lành, từ cách trồng tử tế và sự kiên
                   nhẫn lắng nghe tín hiệu chín mùi của tự nhiên. Tại
@@ -78,7 +78,7 @@ export default function Home() {
                         className="object-contain"
                       />
                     </div>
-                    <div className="mt-0 text-lg font-bold sm:text-xl md:text-2xl">
+                    <div className="mt-0 text-base font-bold sm:text-lg md:text-xl">
                       {it.label}
                     </div>
                   </div>
@@ -187,7 +187,7 @@ export default function Home() {
               variant="diamond"
             />
 
-            <p className="mx-auto mb-8 max-w-4xl text-justify italic text-lg leading-relaxed sm:text-xl md:text-2xl">
+            <p className="mx-auto mb-8 max-w-4xl text-justify italic text-base leading-relaxed sm:text-lg md:text-xl lg:text-2xl">
               Trang trại VietPineapple được chăm sóc theo hướng xanh sạch, chú
               trọng từng giai đoạn từ chọn giống, làm đất, tưới tiêu đến theo
               dõi độ chín tự nhiên của trái. Mỗi luống dứa đều được kiểm tra kỹ
@@ -255,7 +255,7 @@ export default function Home() {
                 variant="diamond"
               />
 
-              <div className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed space-y-4 sm:text-xl md:text-2xl">
+              <div className="mx-auto mt-6 max-w-4xl space-y-4 text-base leading-relaxed sm:text-lg md:text-xl lg:text-2xl">
                 <p>
                   • <strong>Tăng cường hệ miễn dịch:</strong> Giàu Vitamin C và
                   chất chống oxy hóa, giúp cơ thể chống lại nhiễm trùng và cảm
