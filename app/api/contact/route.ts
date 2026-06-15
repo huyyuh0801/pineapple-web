@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
-const recipient = "ntttrang@vietpineapple.com.vn"
+const recipient = "nnttrang@vietpineapple.com.vn"
 
 type ContactPayload = {
   name?: string
