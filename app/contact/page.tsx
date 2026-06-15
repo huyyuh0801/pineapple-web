@@ -57,8 +57,28 @@ export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
 
+  function handlePhoneChange(value: string) {
+    setPhoneNumber(value.replace(/\D/g, ""))
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    const trimmedName = name.trim()
+    const trimmedPhoneNumber = phoneNumber.trim()
+
+    if (!trimmedName || !trimmedPhoneNumber) {
+      setStatus("error")
+      setMessage("Vui lòng nhập họ tên và số điện thoại.")
+      return
+    }
+
+    if (!/^\d+$/.test(trimmedPhoneNumber)) {
+      setStatus("error")
+      setMessage("Số điện thoại chỉ được chứa chữ số.")
+      return
+    }
+
     setStatus("sending")
     setMessage("")
 
@@ -66,7 +86,7 @@ export default function ContactPage() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phoneNumber, note }),
+        body: JSON.stringify({ name: trimmedName, phoneNumber: trimmedPhoneNumber, note }),
       })
       const data = (await response.json()) as { message?: string }
 
@@ -174,9 +194,10 @@ export default function ContactPage() {
                 <Field label="Số điện thoại">
                   <input
                     value={phoneNumber}
-                    onChange={(event) => setPhoneNumber(event.target.value)}
+                    onChange={(event) => handlePhoneChange(event.target.value)}
                     placeholder="Ví dụ: 0357177160"
-                    inputMode="tel"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     required
                     className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />

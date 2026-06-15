@@ -58,6 +58,13 @@ export async function POST(request: Request) {
     )
   }
 
+  if (!/^\d+$/.test(phoneNumber)) {
+    return NextResponse.json(
+      { message: "Số điện thoại chỉ được chứa chữ số." },
+      { status: 400 }
+    )
+  }
+
   const smtpConfig = getSmtpConfig()
 
   if (!smtpConfig) {
