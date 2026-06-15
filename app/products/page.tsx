@@ -80,12 +80,13 @@ export default function ProductsPage() {
                   className="relative group transition-all duration-300 ease-out hover:-translate-y-2 hover:drop-shadow-xl"
                 >
                   <Link href={`/products/${p.slug}`} className="block">
-                    <div className="relative h-52 w-full overflow-hidden rounded sm:h-60 md:h-64">
+                    <div className="relative h-56 w-full overflow-hidden rounded bg-[#307330]/5 sm:h-60 md:h-64">
                       <Image
                         src={p.image || "/images/product-placeholder.png"}
                         alt={p.name}
                         fill
-                        className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-contain p-3"
                       />
 
                       {comingSoon ? (
