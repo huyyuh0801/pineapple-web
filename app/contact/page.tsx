@@ -1,13 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { useMemo, useState } from "react"
+import { FormEvent, useState } from "react"
 
-const BRAND = "VietPineapple"
 const PHONE = "0357177160"
 const ZALO_LINK = "https://zalo.me/0357177160"
 const MESSENGER_LINK = "https://m.me/61574933735753"
-const EMAIL = "vietpineapple@gmail.com"
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
@@ -56,21 +54,36 @@ export default function ContactPage() {
   const [name, setName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [note, setNote] = useState("")
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+  const [message, setMessage] = useState("")
 
-  const mailto = useMemo(() => {
-    const subject = encodeURIComponent(`[${BRAND}] Yêu cầu tư vấn / đặt hàng`)
-    const body = encodeURIComponent(
-      [
-        `Tên: ${name}`,
-        `Số điện thoại: ${phoneNumber}`,
-        "",
-        "Ghi chú:",
-        note,
-      ].join("\n")
-    )
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setStatus("sending")
+    setMessage("")
 
-    return `mailto:${EMAIL}?subject=${subject}&body=${body}`
-  }, [name, note, phoneNumber])
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phoneNumber, note }),
+      })
+      const data = (await response.json()) as { message?: string }
+
+      if (!response.ok) {
+        throw new Error(data.message ?? "Không thể gửi yêu cầu lúc này.")
+      }
+
+      setStatus("success")
+      setMessage(data.message ?? "Yêu cầu đã được gửi.")
+      setName("")
+      setPhoneNumber("")
+      setNote("")
+    } catch (error) {
+      setStatus("error")
+      setMessage(error instanceof Error ? error.message : "Không thể gửi yêu cầu lúc này.")
+    }
+  }
 
   return (
     <main className="bg-white text-neutral-900">
@@ -139,7 +152,10 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <form className="rounded-2xl border bg-white p-4 shadow-sm sm:p-6 md:p-8">
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-2xl border bg-white p-4 shadow-sm sm:p-6 md:p-8"
+            >
               <div className="text-xl font-extrabold leading-snug text-[#307330] sm:text-2xl md:text-4xl">
                 Để lại thông tin cho chúng tôi nếu bạn cần tư vấn
               </div>
@@ -150,6 +166,7 @@ export default function ContactPage() {
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                     placeholder="Nhập tên của bạn"
+                    required
                     className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
@@ -160,6 +177,7 @@ export default function ContactPage() {
                     onChange={(event) => setPhoneNumber(event.target.value)}
                     placeholder="Ví dụ: 0357177160"
                     inputMode="tel"
+                    required
                     className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
@@ -174,13 +192,24 @@ export default function ContactPage() {
                   />
                 </Field>
 
-                <div className="flex flex-wrap gap-3 pt-1">
-                  <a
-                    href={mailto}
-                    className="rounded-xl bg-[#307330] px-5 py-3 text-base font-extrabold text-white transition hover:bg-[#307330] sm:px-6 sm:py-4 sm:text-xl md:text-2xl"
+                {message ? (
+                  <p
+                    className={`text-base font-bold sm:text-lg md:text-xl ${
+                      status === "success" ? "text-[#307330]" : "text-red-600"
+                    }`}
                   >
-                    Gửi yêu cầu
-                  </a>
+                    {message}
+                  </p>
+                ) : null}
+
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="rounded-xl bg-[#307330] px-5 py-3 text-base font-extrabold text-white transition hover:bg-[#307330] disabled:cursor-not-allowed disabled:opacity-70 sm:px-6 sm:py-4 sm:text-xl md:text-2xl"
+                  >
+                    {status === "sending" ? "Đang gửi..." : "Gửi yêu cầu"}
+                  </button>
                 </div>
               </div>
             </form>
