@@ -51,16 +51,23 @@ export async function POST(request: Request) {
   const phoneNumber = payload.phoneNumber?.trim()
   const note = payload.note?.trim()
 
-  if (!name || !phoneNumber) {
+  if (!name) {
     return NextResponse.json(
-      { message: "Vui lòng nhập họ tên và số điện thoại." },
+      { message: "Tên không được để trống." },
+      { status: 400 }
+    )
+  }
+
+  if (!phoneNumber) {
+    return NextResponse.json(
+      { message: "Số điện thoại không được để trống." },
       { status: 400 }
     )
   }
 
   if (!/^\d+$/.test(phoneNumber)) {
     return NextResponse.json(
-      { message: "Số điện thoại chỉ được chứa chữ số." },
+      { message: "Số điện thoại chỉ được nhập số." },
       { status: 400 }
     )
   }

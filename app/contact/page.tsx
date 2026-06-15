@@ -58,6 +58,11 @@ export default function ContactPage() {
   const [message, setMessage] = useState("")
 
   function handlePhoneChange(value: string) {
+    if (/\D/.test(value)) {
+      setStatus("error")
+      setMessage("Số điện thoại chỉ được nhập số.")
+    }
+
     setPhoneNumber(value.replace(/\D/g, ""))
   }
 
@@ -67,15 +72,21 @@ export default function ContactPage() {
     const trimmedName = name.trim()
     const trimmedPhoneNumber = phoneNumber.trim()
 
-    if (!trimmedName || !trimmedPhoneNumber) {
+    if (!trimmedName) {
       setStatus("error")
-      setMessage("Vui lòng nhập họ tên và số điện thoại.")
+      setMessage("Tên không được để trống.")
+      return
+    }
+
+    if (!trimmedPhoneNumber) {
+      setStatus("error")
+      setMessage("Số điện thoại không được để trống.")
       return
     }
 
     if (!/^\d+$/.test(trimmedPhoneNumber)) {
       setStatus("error")
-      setMessage("Số điện thoại chỉ được chứa chữ số.")
+      setMessage("Số điện thoại chỉ được nhập số.")
       return
     }
 
@@ -173,6 +184,7 @@ export default function ContactPage() {
             </div>
 
             <form
+              noValidate
               onSubmit={handleSubmit}
               className="rounded-2xl border bg-white p-4 shadow-sm sm:p-6 md:p-8"
             >
@@ -186,7 +198,6 @@ export default function ContactPage() {
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                     placeholder="Nhập tên của bạn"
-                    required
                     className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
@@ -198,7 +209,6 @@ export default function ContactPage() {
                     placeholder="Ví dụ: 0357177160"
                     inputMode="numeric"
                     pattern="[0-9]*"
-                    required
                     className="mt-3 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:border-[#307330] focus:ring-2 focus:ring-[#307330]/15 sm:py-4 sm:text-xl md:text-2xl"
                   />
                 </Field>
@@ -215,8 +225,10 @@ export default function ContactPage() {
 
                 {message ? (
                   <p
-                    className={`text-base font-bold sm:text-lg md:text-xl ${
-                      status === "success" ? "text-[#307330]" : "text-red-600"
+                    className={`rounded-xl border px-4 py-3 text-xl font-extrabold leading-snug sm:text-2xl md:text-3xl ${
+                      status === "success"
+                        ? "border-[#307330]/20 bg-[#307330]/5 text-[#307330]"
+                        : "border-red-200 bg-red-50 text-red-600"
                     }`}
                   >
                     {message}
