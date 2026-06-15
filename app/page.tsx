@@ -5,6 +5,24 @@ import HeroSlider from "@/components/HeroSlider";
 import Divider from "@/components/Divider";
 import QuantityAddToCart from "@/components/QuantityAddToCart";
 import { formatVnd } from "@/lib/format";
+import { buildMetadata, jsonLdScript, siteUrl } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  path: "/",
+});
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Trang chủ",
+      item: siteUrl,
+    },
+  ],
+};
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
@@ -22,6 +40,10 @@ export default function Home() {
 
   return (
     <main className="bg-white text-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd)}
+      />
       {/* ===== HERO ===== */}
       <section className="relative bg-white">
         {/* pattern */}

@@ -4,6 +4,13 @@ import { notFound } from "next/navigation"
 import QuantityAddToCart from "@/components/QuantityAddToCart"
 import { products } from "@/data/pineapples"
 import { formatVnd } from "@/lib/format"
+import {
+  absoluteUrl,
+  buildMetadata,
+  jsonLdScript,
+  siteName,
+  siteUrl,
+} from "@/lib/seo"
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
@@ -71,6 +78,39 @@ function formatProductPrice(price: number | null, unit?: string | null) {
   return `${formatVnd(price)}${unit ? `/${unit}` : ""}`
 }
 
+export function generateStaticParams() {
+  return products.map((product) => ({
+    slug: product.slug,
+  }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const product = products.find((item) => item.slug === slug)
+
+  if (!product) {
+    return buildMetadata({
+      title: "Sản phẩm VietPineapple",
+      path: "/products",
+    })
+  }
+
+  const shortDescription = toLines(product.short).join(" - ")
+
+  return buildMetadata({
+    title: `${product.name} - VietPineapple`,
+    description:
+      shortDescription ||
+      `Thông tin chi tiết và đặt hàng ${product.name} tại VietPineapple.`,
+    path: `/products/${product.slug}`,
+    image: product.image || "/images/logo1.png",
+  })
+}
+
 export default async function ProductDetailPage({
   params,
 }: {
@@ -83,9 +123,73 @@ export default async function ProductDetailPage({
 
   const bulletsTop = toLines(product.bullets)
   const sections = parseSections(toLines(product.description))
+  const productUrl = absoluteUrl(`/products/${product.slug}`)
+  const productDescription =
+    toLines(product.short).join(" - ") ||
+    toLines(product.description).slice(0, 2).join(" ")
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    image: [absoluteUrl(product.image || "/images/logo1.png")],
+    description: productDescription,
+    brand: {
+      "@type": "Brand",
+      name: siteName,
+    },
+    url: productUrl,
+    ...(product.price
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: productUrl,
+            priceCurrency: "VND",
+            price: product.price,
+            availability: "https://schema.org/InStock",
+            itemCondition: "https://schema.org/NewCondition",
+            seller: {
+              "@type": "Organization",
+              name: siteName,
+            },
+          },
+        }
+      : {}),
+  }
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Trang chủ",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Sản phẩm",
+        item: `${siteUrl}/products`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: productUrl,
+      },
+    ],
+  }
 
   return (
     <main className="bg-white text-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(productJsonLd)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd)}
+      />
       <section className="bg-white">
         <Container>
           <div className="py-8 sm:py-10">

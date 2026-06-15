@@ -5,6 +5,34 @@ import Divider from "@/components/Divider"
 import QuantityAddToCart from "@/components/QuantityAddToCart"
 import { products } from "@/data/pineapples"
 import { formatVnd } from "@/lib/format"
+import { buildMetadata, jsonLdScript, siteUrl } from "@/lib/seo"
+
+export const metadata = buildMetadata({
+  title: "Sản phẩm VietPineapple - Dứa MD2, nước ép dứa và đặc sản từ dứa",
+  description:
+    "Xem các sản phẩm VietPineapple gồm dứa MD2 tươi, nước ép dứa nguyên chất, dứa sấy dẻo và các sản phẩm từ dứa.",
+  path: "/products",
+  image: "/images/dua_md2.png",
+})
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Trang chủ",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Sản phẩm",
+      item: `${siteUrl}/products`,
+    },
+  ],
+}
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
@@ -32,6 +60,10 @@ function TikTokEmbed({ videoId }: { videoId: string }) {
 export default function ProductsPage() {
   return (
     <main className="bg-white text-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd)}
+      />
       <section className="bg-white">
         <Container>
           <div className="pt-10">

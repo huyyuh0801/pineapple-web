@@ -1,5 +1,33 @@
 import Image from "next/image"
 import Divider from "@/components/Divider"
+import { buildMetadata, jsonLdScript, siteUrl } from "@/lib/seo"
+
+export const metadata = buildMetadata({
+  title: "Giới thiệu VietPineapple - Câu chuyện trang trại dứa tại Đồng Nai",
+  description:
+    "Tìm hiểu câu chuyện VietPineapple, trang trại dứa tại Tam Phước, Đồng Nai với định hướng canh tác tử tế, chọn lọc kỹ và giữ trọn hương vị tự nhiên.",
+  path: "/about",
+  image: "/images/farm-1.png",
+})
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Trang chủ",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Giới thiệu",
+      item: `${siteUrl}/about`,
+    },
+  ],
+}
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{children}</div>
@@ -34,6 +62,10 @@ function ArticleImage({
 export default function AboutPage() {
   return (
     <main className="bg-white text-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(breadcrumbJsonLd)}
+      />
       {/* ===== STARTUP STORY ===== */}
       <section className="bg-white py-12 md:py-16">
         <Container>
