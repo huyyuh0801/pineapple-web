@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 import { products } from "@/data/pineapples"
 
-const baseUrl = "https://vietpineapple.com.vn"
+const baseUrl = "https://www.vietpineapple.com.vn"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
