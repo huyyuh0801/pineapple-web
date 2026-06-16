@@ -6,7 +6,7 @@ import { formatVnd } from "@/lib/format"
 export type CartProduct = {
   slug: string
   name: string
-  price: number
+  price: number | null
   unit?: string | null
   image?: string | null
 }
@@ -42,13 +42,14 @@ function sanitizeCartItems(value: unknown): CartItem[] {
     const price =
       typeof candidate.price === "number" && Number.isFinite(candidate.price)
         ? candidate.price
-        : 0
+        : null
     const quantity =
       typeof candidate.quantity === "number" && Number.isFinite(candidate.quantity)
         ? Math.floor(candidate.quantity)
         : 0
 
-    if (!slug || !name || price <= 0 || quantity <= 0) return []
+    if (!slug || !name || quantity <= 0) return []
+    if (price !== null && price <= 0) return []
 
     return [
       {
@@ -86,7 +87,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = useMemo<CartContextValue>(() => {
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
     const totalPrice = items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
+      (sum, item) => sum + (item.price || 0) * item.quantity,
       0
     )
 
@@ -96,7 +97,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       totalPrice,
       addItem(product, quantity = 1) {
         const amount = Math.max(1, Math.floor(quantity))
-        if (!Number.isFinite(product.price) || product.price <= 0) return
+        if (
+          product.price !== null &&
+          (!Number.isFinite(product.price) || product.price <= 0)
+        ) {
+          return
+        }
 
         setItems((current) => {
           const existing = current.find((item) => item.slug === product.slug)

@@ -43,6 +43,15 @@ function formatProductPrice(price: number | null, unit?: string | null) {
   return `${formatVnd(price)}${unit ? `/${unit}` : ""}`
 }
 
+function getProductPriceLabel(
+  price: number | null,
+  unit: string | null | undefined,
+  canAddToCart: boolean
+) {
+  if (!price && canAddToCart) return "Đặt hàng"
+  return formatProductPrice(price, unit)
+}
+
 function TikTokEmbed({ videoId }: { videoId: string }) {
   return (
     <div className="min-h-[560px] overflow-hidden bg-white">
@@ -73,6 +82,7 @@ export default function ProductsPage() {
           <div className="grid gap-10 pb-16 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-14 lg:pb-20">
             {products.map((p) => {
               const comingSoon = Boolean(p.comingSoon)
+              const canAddToCart = !comingSoon && (Boolean(p.price) || p.slug === "ruou-dua")
 
               return (
                 <div
@@ -129,11 +139,11 @@ export default function ProductsPage() {
 
                     <div className="mt-4">
                       <div className="text-lg font-extrabold text-[#307330]">
-                        {formatProductPrice(p.price, p.unit)}
+                        {getProductPriceLabel(p.price, p.unit, canAddToCart)}
                       </div>
 
                       <div className="mt-3">
-                        {!comingSoon && p.price ? (
+                        {canAddToCart ? (
                           <QuantityAddToCart
                             product={{
                               slug: p.slug,

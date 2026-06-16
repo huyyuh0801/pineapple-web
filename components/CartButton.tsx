@@ -79,7 +79,7 @@ export default function CartButton() {
                           {item.name}
                         </div>
                         <div className="mt-1 text-sm font-bold text-neutral-600">
-                          {formatVnd(item.price)}
+                          {item.price ? formatVnd(item.price) : "Liên hệ"}
                           {item.unit ? `/${item.unit}` : ""}
                         </div>
 

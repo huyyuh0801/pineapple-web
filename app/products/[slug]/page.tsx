@@ -78,6 +78,15 @@ function formatProductPrice(price: number | null, unit?: string | null) {
   return `${formatVnd(price)}${unit ? `/${unit}` : ""}`
 }
 
+function getProductPriceLabel(
+  price: number | null,
+  unit: string | null | undefined,
+  canAddToCart: boolean
+) {
+  if (!price && canAddToCart) return "Đặt hàng"
+  return formatProductPrice(price, unit)
+}
+
 export function generateStaticParams() {
   return products.map((product) => ({
     slug: product.slug,
@@ -121,6 +130,8 @@ export default async function ProductDetailPage({
 
   if (!product) return notFound()
 
+  const canAddToCart =
+    !product.comingSoon && (Boolean(product.price) || product.slug === "ruou-dua")
   const bulletsTop = toLines(product.bullets)
   const sections = parseSections(toLines(product.description))
   const productUrl = absoluteUrl(`/products/${product.slug}`)
@@ -230,11 +241,11 @@ export default async function ProductDetailPage({
 
                 <div className="mt-8">
                   <div className="font-serif text-2xl font-extrabold text-[#307330] sm:text-3xl">
-                    {formatProductPrice(product.price, product.unit)}
+                    {getProductPriceLabel(product.price, product.unit, canAddToCart)}
                   </div>
 
                   <div className="mt-4">
-                    {product.price ? (
+                    {canAddToCart ? (
                       <QuantityAddToCart
                         product={{
                           slug: product.slug,
