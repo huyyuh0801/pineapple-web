@@ -65,7 +65,7 @@ export const products = [
   {
     slug: "ruou-dua",
     name: "Rượu dứa",
-    image: "/images/products/ruou-dua.png",
+    image: "/images/ruou_dua.png",
     short: "Chai 750ml – 19% Vol\nHương vị dứa lên men tự nhiên",
     price: null,
     unit: "chai",
@@ -78,8 +78,8 @@ export const products = [
       "Dành cho người trưởng thành",
     ],
     description: [
-      "Rượu dứa VietPineapple được lên men tự nhiên từ những trái dứa chọn lọc, mang hương vị độc đáo và khác biệt.",
-      "Sản phẩm đang trong quá trình hoàn thiện và sẽ sớm ra mắt.",
+      "Rượu Dứa Lemi được tạo nên từ nước ép dứa tươi tuyển chọn, lên men tự nhiên cùng rượu gạo truyền thống, mang đến hương vị thơm dịu và thanh ngọt đặc trưng. Sản phẩm giữ trọn tinh túy từ nguyên liệu thiên nhiên, nguyên chất, không pha hương liệu và không chất bảo quản.",
+      "Với quy trình sản xuất tỉ mỉ và sự chăm chút trong từng công đoạn, VietPineapple mong muốn mang đến cho khách hàng những sản phẩm chất lượng, an toàn và giàu giá trị từ nông sản Việt.",
     ],
   },
 
