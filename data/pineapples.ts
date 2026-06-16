@@ -69,7 +69,6 @@ export const products = [
     short: "Chai 750ml – 19% Vol\nHương vị dứa lên men tự nhiên",
     price: null,
     unit: "chai",
-    comingSoon: true,
     bullets: [
       "Dung tích: 750ml",
       "Nồng độ cồn: 19% Vol",
