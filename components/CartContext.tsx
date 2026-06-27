@@ -26,9 +26,40 @@ type CartContextValue = {
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
-const STORAGE_KEY = "vietpineapple-cart"
+const STORAGE_PREFIX = "vietpineapple-cart"
+const DEVICE_COOKIE = "vietpineapple-device-id"
+const LEGACY_STORAGE_KEY = STORAGE_PREFIX
 
 export { formatVnd }
+
+function getCookieValue(name: string) {
+  const match = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith(`${name}=`))
+
+  return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null
+}
+
+function createDeviceId() {
+  if (window.crypto?.randomUUID) {
+    return window.crypto.randomUUID()
+  }
+
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`
+}
+
+function getDeviceStorageKey() {
+  let deviceId = getCookieValue(DEVICE_COOKIE)
+
+  if (!deviceId) {
+    deviceId = createDeviceId()
+    document.cookie = `${DEVICE_COOKIE}=${encodeURIComponent(
+      deviceId
+    )}; Max-Age=31536000; Path=/; SameSite=Lax`
+  }
+
+  return `${STORAGE_PREFIX}:${deviceId}`
+}
 
 function sanitizeCartItems(value: unknown): CartItem[] {
   if (!Array.isArray(value)) return []
@@ -67,10 +98,14 @@ function sanitizeCartItems(value: unknown): CartItem[] {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [ready, setReady] = useState(false)
+  const [storageKey, setStorageKey] = useState<string | null>(null)
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem(STORAGE_KEY)
+      const deviceStorageKey = getDeviceStorageKey()
+      const raw = window.localStorage.getItem(deviceStorageKey)
+      window.localStorage.removeItem(LEGACY_STORAGE_KEY)
+      setStorageKey(deviceStorageKey)
       setItems(raw ? sanitizeCartItems(JSON.parse(raw)) : [])
     } catch {
       setItems([])
@@ -80,9 +115,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (!ready) return
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-  }, [items, ready])
+    if (!ready || !storageKey) return
+    window.localStorage.setItem(storageKey, JSON.stringify(items))
+  }, [items, ready, storageKey])
 
   const value = useMemo<CartContextValue>(() => {
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
