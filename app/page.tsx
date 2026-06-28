@@ -4,6 +4,7 @@ import { products } from "@/data/pineapples";
 import HeroSlider from "@/components/HeroSlider";
 import Divider from "@/components/Divider";
 import QuantityAddToCart from "@/components/QuantityAddToCart";
+import { DeferredYouTube } from "@/components/DeferredVideoEmbed";
 import { formatVnd } from "@/lib/format";
 import { buildMetadata, jsonLdScript, siteUrl } from "@/lib/seo";
 
@@ -46,9 +47,6 @@ export default function Home() {
       />
       {/* ===== HERO ===== */}
       <section className="relative bg-white">
-        {/* pattern */}
-        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:url('/images/pattern-pine.png')] bg-repeat" />
-
         {/* 🔥 FIX: Banner sát navbar */}
         <div className="-mt-2">
           <HeroSlider />
@@ -91,12 +89,13 @@ export default function Home() {
                   { label: "Giữ trọn vị ngon", icon: "/images/icon5.png" },
                 ].map((it) => (
                   <div key={it.label} className="text-center">
-                    <div className="mx-auto flex h-24 w-24 items-center justify-center sm:h-28 sm:w-28 md:h-30 md:w-30">
+                    <div className="relative mx-auto h-24 w-24 sm:h-28 sm:w-28 md:h-30 md:w-30">
                       <Image
                         src={it.icon}
                         alt={it.label}
-                        width={200}
-                        height={200}
+                        fill
+                        sizes="(max-width: 640px) 96px, 120px"
+                        quality={60}
                         className="object-contain"
                       />
                     </div>
@@ -225,6 +224,8 @@ export default function Home() {
                     src="/images/farm-1.png"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={60}
                     className="object-cover"
                   />
                 </div>
@@ -234,6 +235,8 @@ export default function Home() {
                       src="/images/farm-2.png"
                       alt=""
                       fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      quality={60}
                       className="object-cover"
                     />
                   </div>
@@ -242,6 +245,8 @@ export default function Home() {
                       src="/images/farm-3.png"
                       alt=""
                       fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      quality={60}
                       className="object-cover"
                     />
                   </div>
@@ -254,6 +259,8 @@ export default function Home() {
                     src="/images/farm-4.png"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={60}
                     className="object-cover"
                   />
                 </div>
@@ -262,6 +269,8 @@ export default function Home() {
                     src="/images/farm-5.png"
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={60}
                     className="object-cover"
                   />
                 </div>
@@ -329,14 +338,8 @@ export default function Home() {
             </div>
             {/* ===== VIDEO ===== */}
             <div className="mt-10 flex justify-center">
-              <div className="w-full max-w-4xl aspect-video">
-                <iframe
-                  className="w-full h-full rounded-xl shadow-md"
-                  src="https://www.youtube.com/embed/I5tSvObKad8"
-                  title="YouTube video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="w-full max-w-4xl">
+                <DeferredYouTube videoId="I5tSvObKad8" />
               </div>
             </div>
           </div>

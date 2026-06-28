@@ -3,6 +3,7 @@ import Link from "next/link"
 import ContactIcons from "@/components/ContactIcons"
 import Divider from "@/components/Divider"
 import QuantityAddToCart from "@/components/QuantityAddToCart"
+import { DeferredTikTok } from "@/components/DeferredVideoEmbed"
 import { products } from "@/data/pineapples"
 import { formatVnd } from "@/lib/format"
 import { buildMetadata, jsonLdScript, siteUrl } from "@/lib/seo"
@@ -50,20 +51,6 @@ function getProductPriceLabel(
 ) {
   if (!price && canAddToCart) return "Đặt hàng"
   return formatProductPrice(price, unit)
-}
-
-function TikTokEmbed({ videoId }: { videoId: string }) {
-  return (
-    <div className="min-h-[560px] overflow-hidden bg-white">
-      <iframe
-        src={`https://www.tiktok.com/embed/v2/${videoId}`}
-        title="TikTok review SP"
-        className="h-[560px] w-full border-0"
-        allow="fullscreen; picture-in-picture"
-        allowFullScreen
-      />
-    </div>
-  )
 }
 
 export default function ProductsPage() {
@@ -196,7 +183,7 @@ export default function ProductsPage() {
               "7522382828106042642",
               "7578679910122720520",
             ].map((videoId) => (
-              <TikTokEmbed key={videoId} videoId={videoId} />
+              <DeferredTikTok key={videoId} videoId={videoId} />
             ))}
           </div>
         </Container>

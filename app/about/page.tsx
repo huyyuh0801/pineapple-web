@@ -54,7 +54,14 @@ function ArticleImage({
           : "md:float-right md:ml-8 md:w-[46%]",
       ].join(" ")}
     >
-      <Image src={src} alt={alt} fill className="object-cover" />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, 46vw"
+        quality={60}
+        className="object-cover"
+      />
     </div>
   )
 }
@@ -155,12 +162,13 @@ export default function AboutPage() {
                   { label: "Giữ trọn vị ngon", icon: "/images/icon5.png" },
                 ].map((item) => (
                   <div key={item.label}>
-                    <div className="mx-auto flex h-24 w-24 items-center justify-center sm:h-28 sm:w-28">
+                    <div className="relative mx-auto h-24 w-24 sm:h-28 sm:w-28">
                       <Image
                         src={item.icon}
                         alt={item.label}
-                        width={200}
-                        height={200}
+                        fill
+                        sizes="(max-width: 640px) 96px, 112px"
+                        quality={60}
                         className="object-contain"
                       />
                     </div>

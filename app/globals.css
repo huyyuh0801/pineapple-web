@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Faustina:wght@400;600;700&display=swap');
 @import "tailwindcss";
 html,
 body {
@@ -14,7 +13,7 @@ body {
   background: white;
   color: #171717;
 
-  font-family: 'Faustina', serif; 
+  font-family: var(--font-faustina), Georgia, serif;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

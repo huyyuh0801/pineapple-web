@@ -8,9 +8,6 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#307330] text-white">
 
-      {/* pattern */}
-      <div className="pointer-events-none absolute inset-0 opacity-10 [background-image:url('/images/pattern-pine.png')] bg-repeat" />
-
       <Container>
         <div className="relative z-10 flex flex-col gap-4 py-5 sm:py-6 md:flex-row md:items-center md:justify-between">
 
@@ -92,6 +89,8 @@ export default function Footer() {
                 alt="VietPineapple logo"
                 width={260}
                 height={260}
+                sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 224px"
+                quality={60}
                 className="h-40 w-40 object-contain sm:h-48 sm:w-48 md:h-56 md:w-56"
               />
             </div>

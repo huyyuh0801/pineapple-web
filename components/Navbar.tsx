@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
 import CartButton from "./CartButton"
@@ -9,7 +7,6 @@ function NavItem({ href, children }: { href: string; children: React.ReactNode }
     <Link
       href={href}
       className="
-        font-[Faustina]
         whitespace-nowrap
         text-base font-semibold leading-none tracking-wide sm:text-lg md:text-[25px]
         !text-[#307330]

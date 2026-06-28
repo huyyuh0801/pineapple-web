@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
 const DEFAULT_IMAGES = [
   "/images/banner2.png",
@@ -16,7 +16,6 @@ export default function HeroSlider({
 }) {
   const [index, setIndex] = useState(0)
   const [fade, setFade] = useState(true)
-  const isHoveredRef = useRef(false)
 
   function goTo(i: number) {
     setFade(false)
@@ -34,25 +33,8 @@ export default function HeroSlider({
     goTo(index === images.length - 1 ? 0 : index + 1)
   }
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isHoveredRef.current) {
-        setFade(false)
-        setTimeout(() => {
-          setIndex((current) => (current === images.length - 1 ? 0 : current + 1))
-          setFade(true)
-        }, 150)
-      }
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [images.length])
-
   return (
-    <div
-      className="w-full flex flex-col -mt-2 sm:-mt-4 md:-mt-5"
-      onMouseEnter={() => (isHoveredRef.current = true)}
-      onMouseLeave={() => (isHoveredRef.current = false)}
-    >
+    <div className="w-full flex flex-col -mt-2 sm:-mt-4 md:-mt-5">
       {/* ===== IMAGE WRAPPER ===== */}
       <div className="relative w-full">
 
@@ -61,9 +43,9 @@ export default function HeroSlider({
 
           <Image
             src={images[index]}
-            alt="Banner"
+            alt="Sản phẩm và trang trại VietPineapple"
             fill
-            priority
+            preload
             sizes="100vw"
             className={`object-cover object-center transition-opacity duration-500 ${
               fade ? "opacity-100" : "opacity-0"
@@ -72,7 +54,9 @@ export default function HeroSlider({
 
           {/* LEFT */}
           <button
+            type="button"
             onClick={prev}
+            aria-label="Ảnh trước"
             className="
               absolute left-2 sm:left-3 top-1/2 -translate-y-1/2
               bg-black/40 hover:bg-black/60
@@ -98,7 +82,9 @@ export default function HeroSlider({
 
           {/* RIGHT */}
           <button
+            type="button"
             onClick={next}
+            aria-label="Ảnh tiếp theo"
             className="
               absolute right-2 sm:right-3 top-1/2 -translate-y-1/2
               bg-black/40 hover:bg-black/60
@@ -129,7 +115,9 @@ export default function HeroSlider({
         {images.map((_, i) => (
           <button
             key={i}
+            type="button"
             onClick={() => goTo(i)}
+            aria-label={`Xem ảnh ${i + 1}`}
             className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full transition ${
               i === index ? "bg-[#307330] scale-110" : "bg-gray-400"
             }`}

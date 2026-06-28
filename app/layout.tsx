@@ -1,4 +1,5 @@
 import "./globals.css"
+import { Faustina } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { CartProvider } from "@/components/CartContext"
@@ -14,6 +15,13 @@ import {
 } from "@/lib/seo"
 
 export const metadata = buildMetadata()
+
+const faustina = Faustina({
+  subsets: ["latin", "vietnamese"],
+  weight: "variable",
+  display: "swap",
+  variable: "--font-faustina",
+})
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -52,7 +60,7 @@ const websiteJsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body>
+      <body className={faustina.variable}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)}
